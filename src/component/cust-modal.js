@@ -1,15 +1,22 @@
 import {Button, Modal} from "react-bootstrap";
 import CustTable from "./cust-table";
 import {InsuranceListSample} from "../utils/sample-data/sample";
+import {useNavigate} from "react-router-dom";
+
 
 export default function CustModal({_show, _handleShow, _id}) {
 
     // 
     //  TODO axios를 통해서 정보를 받아와서 값을 채워준다. 보험 이름, 계약 기간, 납입 기간, 보장 항목 [이름, 설명, 금액    ]
 
+    const navigate = useNavigate()
 
     const handleClose = () => {
         _handleShow(false)
+    }
+
+    const handleSignUp = () => {
+        navigate("/signup");
     }
 
     return <Modal show={_show} onHide={handleClose}>
@@ -31,7 +38,7 @@ export default function CustModal({_show, _handleShow, _id}) {
             <Button variant="danger" onClick={handleClose}>
                 취소
             </Button>
-            <Button variant="primary" onClick={handleClose}>
+            <Button variant="primary" onClick={handleSignUp}>
                 가입
             </Button>
         </Modal.Footer>
