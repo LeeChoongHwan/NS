@@ -1,3 +1,6 @@
 .hover_cursor:hover{
     cursor:pointer;
 }
+.flex_box{
+    display: flex;
+}

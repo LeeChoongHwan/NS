@@ -1,25 +1,31 @@
 import React, {useEffect, useState} from 'react';
 import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
-import Row from 'react-bootstrap/Row';
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
+import {
+    email_back_pattern, email_front_pattern,
+    phone_first_pattern,
+    phone_last_pattern,
+    phone_second_pattern,
+    ssn_back_pattern,
+    ssn_front_pattern
+} from "../utils/reg-pattern";
+import {Col, InputGroup, Row} from "react-bootstrap";
 
 export default function FormExample() {
     const [validated, setValidated] = useState(false);
+    const [insuranceType, setInsuranceType] = useState();
+    const navigate = useNavigate();
+    const location = useLocation()
 
-    // const navigate = useNavigate();
-    // const location = ueLocation()
-
-    // useEffect(()=>{
-    // //    location.state에서 type을 받아 오기.
-    // },[])
+    useEffect(()=>{
+    //    location.state에서 type을 받아 오기.
+    //     if(location.state.type!==undefined)
+    //         setInsuranceType(location.state.type)
+    },[])
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
-        console.log(form);
-        console.log(form.nnn.value)
         event.preventDefault();
         if (form.checkValidity() === false) {
             event.stopPropagation();
@@ -29,117 +35,162 @@ export default function FormExample() {
         // 종류는 그전에서 받아서 오는게 좋을 듯 하네
         // name.value로 받아올 수 있음.
         setValidated(true);
-
     };
+
+     const hanldeBack = () => {
+         navigate("/",{replace:true});
+     }
 
     return (
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
-            <Row className="mb-3">
-                <Form.Group as={Col} md="4" controlId="validationCustom01">
-                    <Form.Label>이름</Form.Label>
+            <Form.Group className={"mb-3"}>
+                <Form.Label>이름</Form.Label>
+                <Form.Control
+                    name="username"
+                    required
+                    type="text"
+                    placeholder="이름"
+                    pattern="^[가-힣]{2,6}"
+                />
+                <Form.Control.Feedback>사용 가능합니다!</Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid">
+                    주어진 형식으로 이름을 입력해주세요
+                </Form.Control.Feedback>
+            </Form.Group>
+
+            <InputGroup className={"w-100 mb-3"}>
+            <Form.Group className={"flex_box col-6"}>
+
+                <div className={"w-100"}>
+
+                <Form.Control
+                    name="ssn1"
+                    required
+                    type="text"
+                    placeholder="주민등록번호"
+                    pattern= {ssn_front_pattern}
+                />
+                <Form.Control.Feedback>사용 가능합니다!</Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid">
+                    주민등록번호 앞자리를 입력해 주세요
+                </Form.Control.Feedback>
+                </div>
+                <div>
+                <InputGroup.Text >-</InputGroup.Text>
+                </div>
+            </Form.Group>
+
+
+            <Form.Group className={"col-6"}>
+                <Form.Control
+                    name="ssn2"
+                    required
+                    type="password"
+                    placeholder="주민등록번호 뒷자리"
+                    pattern= {ssn_back_pattern}
+                />
+                <Form.Control.Feedback>사용 가능합니다!</Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid">
+                    주민등록번호 뒷자리를 입력해 주세요
+                </Form.Control.Feedback>
+            </Form.Group>
+            </InputGroup>
+
+            <InputGroup className="mb-3">
+                <Form.Group className={"flex_box col-4"}>
+                    <div className={"w-100"}>
+                        <Form.Control
+                            name="phone1"
+                            required
+                            type="text"
+                            placeholder="전화번호"
+                            pattern= {phone_first_pattern}
+                        />
+                        <Form.Control.Feedback>사용 가능합니다!</Form.Control.Feedback>
+                        <Form.Control.Feedback type="invalid">
+                            전화번호 형식을 지켜주세요
+                        </Form.Control.Feedback>
+                    </div>
+                    <div>
+                        <InputGroup.Text >-</InputGroup.Text>
+                    </div>
+                </Form.Group>
+                <Form.Group className={"flex_box col-4"}>
+                    <div className={"w-100"}>
+                        <Form.Control
+                            name="phone2"
+                            required
+                            type="text"
+                            placeholder="전화번호"
+                            pattern= {phone_second_pattern}
+                        />
+                        <Form.Control.Feedback>사용 가능합니다!</Form.Control.Feedback>
+                        <Form.Control.Feedback type="invalid">
+                            전화번호 형식을 지켜주세요
+                        </Form.Control.Feedback>
+                    </div>
+                    <div>
+                        <InputGroup.Text >-</InputGroup.Text>
+                    </div>
+                </Form.Group>
+                <Form.Group className={"flex_box col-4"}>
+                    <div className={"w-100"}>
+                        <Form.Control
+                            name="phone3"
+                            required
+                            type="text"
+                            placeholder="전화번호"
+                            pattern= {phone_last_pattern}
+                        />
+                        <Form.Control.Feedback>사용 가능합니다!</Form.Control.Feedback>
+                        <Form.Control.Feedback type="invalid">
+                            전화번호 형식을 지켜주세요
+                        </Form.Control.Feedback>
+                    </div>
+                </Form.Group>
+            </InputGroup>
+
+            <InputGroup className={"w-100 mb-3"}>
+                <Form.Group className={"flex_box col-6"}>
+                    <div className={"w-100"}>
+                        <Form.Control
+                            name="email1"
+                            required
+                            type="text"
+                            placeholder="이메일"
+                            pattern= {email_front_pattern}
+                        />
+                        <Form.Control.Feedback>사용 가능합니다!</Form.Control.Feedback>
+                        <Form.Control.Feedback type="invalid">
+                            이메일 형식을 지켜주세요
+                        </Form.Control.Feedback>
+                    </div>
+                    <div>
+                        <InputGroup.Text >@</InputGroup.Text>
+                    </div>
+                </Form.Group>
+
+
+                <Form.Group className={"col-6"}>
                     <Form.Control
-                        name={"nnn"}
+                        name="email2"
                         required
-                        type="text"
-                        placeholder="이름"
-                        defaultValue=""
-                        pattern="^[가-힣]{2,6}"
+                        type="password"
+                        placeholder="이메일"
+                        pattern= {email_back_pattern}
                     />
                     <Form.Control.Feedback>사용 가능합니다!</Form.Control.Feedback>
                     <Form.Control.Feedback type="invalid">
-                        주어진 형식으로 이름을 입력해주세요
+                        이메일 형식을 지켜주세요
                     </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group as={Col} md="4" controlId="validationCustomUsername">
-                    <Form.Label>주민등록번호</Form.Label>
-                    <InputGroup hasValidation>
-                        <Form.Control
-                            type="number"
-                            placeholder="주민등록번호 앞자리"
-                            aria-describedby="inputGroupPrepend"
-                            required
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            주민등록번호 형식에 맞게 입력해주세요
-                        </Form.Control.Feedback>
-                        <InputGroup.Text id="basic-addon2">-</InputGroup.Text>
-                        <Form.Control
-                            type="number"
-                            placeholder="주민등록번호 뒷자리"
-                            aria-describedby="inputGroupPrepend"
-                            required
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            Please choose a username.
-                        </Form.Control.Feedback>
-                    </InputGroup>
-                </Form.Group>
-            </Row>
-            <Row className="mb-3">
-                <Form.Group as={Col} md="4" controlId="validationCustomUsername">
-                    <Form.Label>전화번호</Form.Label>
-                    <InputGroup hasValidation>
-                        <Form.Control
-                            type="number"
+            </InputGroup>
 
-                            aria-describedby="inputGroupPrepend"
-                            required
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            주민등록번호 형식에 맞게 입력해주세요
-                        </Form.Control.Feedback>
-                        <InputGroup.Text id="basic-addon2">-</InputGroup.Text>
-                        <Form.Control
-                            type="number"
+            {/*TODO 주소 API 추가하기*/}
 
-                            aria-describedby="inputGroupPrepend"
-                            required
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            Please choose a username.
-                        </Form.Control.Feedback>
-                        <InputGroup.Text id="basic-addon2">-</InputGroup.Text>
-                        <Form.Control
-                            type="number"
 
-                            aria-describedby="inputGroupPrepend"
-                            required
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            Please choose a username.
-                        </Form.Control.Feedback>
-                    </InputGroup>
-                </Form.Group>
-            </Row>
-            <Form.Group as={Col} md="4" controlId="validationCustomUsername">
-                <Form.Label>이메일</Form.Label>
-                    <Form.Control
-                        type="email"
-                        placeholder="이메일"
-                        aria-describedby="inputGroupPrepend"
-                        required
-                    />
-                    <Form.Control.Feedback type="invalid">
-                       이메일 형식에 맞춰 주세요
-                    </Form.Control.Feedback>
-            </Form.Group>
-
-            <Form.Group as={Col} md="4" controlId="validationCustomUsername">
-                <Form.Label>주소</Form.Label>
-                <Form.Control
-                    type="email"
-                    placeholder="이메일"
-                    aria-describedby="inputGroupPrepend"
-                    required
-                />
-                <Form.Control.Feedback type="invalid">
-                    이메일 형식에 맞춰 주세요
-                </Form.Control.Feedback>
-
-            {/* TODO   https://postcode.map.daum.net/guide*/}
-            </Form.Group>
+            <Button type="button" variant={"danger"} onClick={hanldeBack}>취소하기</Button>
             <Button type="submit">다음</Button>
-            <Button type="button" variant={"danger"}>취소하기</Button>
         </Form>
     );
 }
