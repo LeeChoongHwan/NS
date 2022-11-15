@@ -19,9 +19,8 @@ export default function FormExample() {
     const location = useLocation()
 
     useEffect(() => {
-        // location.state에서 type을 받아 오기.
-        //  if(location.state.type!==undefined)
-        //      setInsuranceType(location.state.type)
+         if(location.state.type!==undefined)
+             setInsuranceType(location.state.type)
     }, [])
 
     const handleSubmit = (event) => {
@@ -40,7 +39,7 @@ export default function FormExample() {
         }
         console.log(customerDto)
         setValidated(true);
-        navigate(`/insurance/${insuranceType}`, {
+        navigate(`/signup/${insuranceType}`, {
             state: {
                 customerDto
             },

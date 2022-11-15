@@ -4,6 +4,7 @@ import CustModal from "../component/cust-modal";
 import {useEffect, useState} from "react";
 import {InsuranceListSample} from "../utils/sample-data/sample";
 import baseAxios from "../utils/cust-axios";
+import {convertInsuranceType} from "../utils/convert-values";
 
 
 export default function InsuranceList() {
@@ -12,29 +13,36 @@ export default function InsuranceList() {
     const [insId, setInsId] = useState("");
     const [list, setList] = useState([]);
 
+
     const listProps = {
         showModal,
         setShowModal,
-        insId
+        insId,
+
     }
     useEffect(() => {
-            try {
-                async function request(){
-                    const response = await baseAxios.get("/insurance/all");
-                    // setList[response.data];
-                }
-            }
-            catch(e){
-                    console.log(e)
-                }}, [])
+
+        baseAxios().get("/insurance/all")
+            .then(function (response) {
+                setList(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+
+
+
+    }, [])
 const createModal = (event) => {
     setShowModal(true)
     setInsId(event.currentTarget.childNodes[0].innerHTML)
 }
 
+
 return <>
     <Container>
-        <CustTable _head={InsuranceListSample().head} _body={InsuranceListSample().body} _rowAction={createModal}
+        <CustTable _head={InsuranceListSample().head} _body={list} _rowAction={createModal}
                    _modalProps={listProps}/>
     </Container>
 </>
