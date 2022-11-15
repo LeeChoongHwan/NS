@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 import {useNavigate} from "react-router-dom";
+import {Container} from "react-bootstrap";
 
 export default function FormFire() {
     const [validated, setValidated] = useState(false);
@@ -33,28 +34,28 @@ export default function FormFire() {
     };
 
     return (
+        <Container className={"w-75"}>
+            <h4 className={"mb-3 mt-3"}>화재보험 정보 입력</h4>
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                <Form.Group as={Col} md="4" controlId="validationCustomUsername">
-                    <Form.Label>자가여부</Form.Label>
-                        
-                        <Form.Check
-                            inline
-                            label="예"
-                            name="group1"
-                            type='radio'
-                            id={`inline-1`}
-                        />
-                        <Form.Check
-                            inline
-                            label="아니요"
-                            name="group1"
-                            type='radio'
-                            id={`inline-2`}
-                        />
-                       
-                </Form.Group>
-            <Row className="mb-3">
-                <Form.Group as={Col} md="4" controlId="validationCustom01">
+            <Form.Group className={"mb-3"}>
+                <Form.Label>자가여부</Form.Label>
+                <Form.Check
+                    inline
+                    label="예"
+                    name="group1"
+                    type='radio'
+                    id={`inline-1`}
+                />
+                <Form.Check
+                    inline
+                    label="아니요"
+                    name="group1"
+                    type='radio'
+                    id={`inline-2`}
+                />
+            </Form.Group>
+
+                <Form.Group className={"mb-3"}>
                     <Form.Label>건물종류</Form.Label>
                     <Form.Control
                         required
@@ -66,7 +67,7 @@ export default function FormFire() {
                         주어진 형식으로 건물종류를 입력해주세요
                     </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group as={Col} md="4" controlId="validationCustomUsername">
+                <Form.Group className={"mb-3"}>
                     <Form.Label>주택면적</Form.Label>
                     <InputGroup hasValidation>
                         <Form.Control
@@ -80,27 +81,25 @@ export default function FormFire() {
                         </Form.Control.Feedback>
                     </InputGroup>
                 </Form.Group>
-            </Row>
-            <Form.Group as={Col} md="4" controlId="validationCustomUsername">
-                    <Form.Label>실거주 여부</Form.Label>
-                        
-                        <Form.Check
-                            inline
-                            label="예"
-                            name="group1"
-                            type='radio'
-                            id={`inline-1`}
-                        />
-                        <Form.Check
-                            inline
-                            label="아니요"
-                            name="group1"
-                            type='radio'
-                            id={`inline-2`}
-                        />
-                       
-                </Form.Group>
-            <Form.Group as={Col} md="4" controlId="validationCustomUsername">
+
+            <Form.Group className={"mb-3"}>
+                <Form.Label>실거주 여부</Form.Label>
+                <Form.Check
+                    inline
+                    label="예"
+                    name="group2"
+                    type='radio'
+                    id={`inline-1`}
+                />
+                <Form.Check
+                    inline
+                    label="아니요"
+                    name="group2"
+                    type='radio'
+                    id={`inline-2`}
+                />
+            </Form.Group>
+            <Form.Group className={"mb-3"}>
                 <Form.Label>담보금액</Form.Label>
                 <Form.Control
                     type="number"
@@ -109,13 +108,16 @@ export default function FormFire() {
                     required
                 />
                 <Form.Control.Feedback type="invalid">
-                       담보금액 형식에 맞춰 주세요
+                    담보금액 형식에 맞춰 주세요
                 </Form.Control.Feedback>
 
-            {/* TODO   https://postcode.map.daum.net/guide*/}
             </Form.Group>
-            <Button type="submit">다음</Button>
-            <Button type="button" variant={"danger"}>취소하기</Button>
+            <div className={"flex_box flex_box_end"}>
+                <Button type="button" variant={"danger"}>취소하기</Button>
+                <Button type="submit">다음</Button>
+            </div>
         </Form>
+        </Container>
+
     );
 }

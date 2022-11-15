@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 import {useNavigate} from "react-router-dom";
+import {Container} from "react-bootstrap";
 
 export default function FormCar() {
     const [validated, setValidated] = useState(false);
@@ -33,56 +34,57 @@ export default function FormCar() {
     };
 
     return (
-        <Form noValidate validated={validated} onSubmit={handleSubmit}>
-            <Row className="mb-3">
-                <Form.Group as={Col} md="4" controlId="validationCustom01">
-                    <Form.Label>차주</Form.Label>
-                    <Form.Control
-                        name={"nnn"}
-                        required
-                        type="text"
-                        placeholder="이름"
-                        defaultValue=""
-                        pattern="^[가-힣]{2,6}"
-                    />
-                    <Form.Control.Feedback>사용 가능합니다!</Form.Control.Feedback>
-                    <Form.Control.Feedback type="invalid">
-                        주어진 형식으로 이름을 입력해주세요
-                    </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group as={Col} md="4" controlId="validationCustomUsername">
-                    <Form.Label>차량번호</Form.Label>
-                    <InputGroup hasValidation>
+        <Container className={"w-75"}>
+            <h4 className={"mb-3 mt-3"}>자동차보험 정보 입력</h4>
+            <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                    <Form.Group className={"mb-3"}>
+                        <Form.Label>차주</Form.Label>
                         <Form.Control
-                            type="number"
-                            placeholder="차량 번호"
-                            aria-describedby="inputGroupPrepend"
+                            name={"nnn"}
                             required
+                            type="text"
+                            placeholder="이름"
+                            defaultValue=""
+                            pattern="^[가-힣]{2,6}"
                         />
+                        <Form.Control.Feedback>사용 가능합니다!</Form.Control.Feedback>
                         <Form.Control.Feedback type="invalid">
-                            차량 번호 입력 형식에 맞게 입력해주세요
+                            주어진 형식으로 이름을 입력해주세요
                         </Form.Control.Feedback>
-                    </InputGroup>
-                </Form.Group>
-            </Row>
-            <Row className="mb-3">
-                <Form.Group as={Col} md="4" controlId="validationCustomUsername">
-                    <Form.Label>차량가액</Form.Label>
-                    <InputGroup hasValidation>
-                        <Form.Control
-                            type="number"
-                            placeholder="차량가액"
-                            aria-describedby="inputGroupPrepend"
-                            required
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            차량 가액 입력 형식에 맞게 입력해주세요
-                        </Form.Control.Feedback>
-                    </InputGroup>
-                </Form.Group>
-            </Row>
-            <Form.Group as={Col} md="4" controlId="validationCustomUsername">
-                <Form.Label>차종</Form.Label>
+                    </Form.Group>
+                    <Form.Group className={"mb-3"}>
+                        <Form.Label>차량번호</Form.Label>
+                        <InputGroup hasValidation>
+                            <Form.Control
+                                type="number"
+                                placeholder="차량 번호"
+                                aria-describedby="inputGroupPrepend"
+                                required
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                차량 번호 입력 형식에 맞게 입력해주세요
+                            </Form.Control.Feedback>
+                        </InputGroup>
+                    </Form.Group>
+
+
+                    <Form.Group className={"mb-3"}>
+                        <Form.Label>차량가액</Form.Label>
+                        <InputGroup hasValidation>
+                            <Form.Control
+                                type="number"
+                                placeholder="차량가액"
+                                aria-describedby="inputGroupPrepend"
+                                required
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                차량 가액 입력 형식에 맞게 입력해주세요
+                            </Form.Control.Feedback>
+                        </InputGroup>
+                    </Form.Group>
+
+                <Form.Group className={"mb-3"}>
+                    <Form.Label>차종</Form.Label>
                     <Form.Control
                         type="text"
                         placeholder="차종"
@@ -90,26 +92,28 @@ export default function FormCar() {
                         required
                     />
                     <Form.Control.Feedback type="invalid">
-                       차종입력 형식에 맞춰 주세요
+                        차종입력 형식에 맞춰 주세요
                     </Form.Control.Feedback>
-            </Form.Group>
+                </Form.Group>
 
-            <Form.Group as={Col} md="4" controlId="validationCustomUsername">
-                <Form.Label>연식</Form.Label>
-                <Form.Control
-                    type="number"
-                    placeholder="연식"
-                    aria-describedby="inputGroupPrepend"
-                    required
-                />
-                <Form.Control.Feedback type="invalid">
-                       연식입력 형식에 맞춰 주세요
-                </Form.Control.Feedback>
+                <Form.Group className={"mb-3"}>
+                    <Form.Label>연식</Form.Label>
+                    <Form.Control
+                        type="number"
+                        placeholder="연식"
+                        aria-describedby="inputGroupPrepend"
+                        required
+                    />
+                    <Form.Control.Feedback type="invalid">
+                        연식입력 형식에 맞춰 주세요
+                    </Form.Control.Feedback>
 
-            {/* TODO   https://postcode.map.daum.net/guide*/}
-            </Form.Group>
-            <Button type="submit">다음</Button>
-            <Button type="button" variant={"danger"}>취소하기</Button>
-        </Form>
+                    {/* TODO   https://postcode.map.daum.net/guide*/}
+                </Form.Group>
+                <div className={"flex_box flex_box_end"}>
+                    <Button type="button" variant={"danger"}>취소하기</Button>
+                    <Button type="submit">다음</Button>
+                </div>
+            </Form> </Container>
     );
 }

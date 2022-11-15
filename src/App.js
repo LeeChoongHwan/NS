@@ -13,13 +13,12 @@ function App() {
       <div >
         <Router>
           <Routes>
-              {/*<Route path={"/"} element={<FormExample/>}/>*/}
             <Route path={"/"} element={<InsuranceList/>}/>
               <Route path={"/signup"} element={<FormExample/>}/>
+              <Route path={"/signup/CAR"} element={<FormCar/>}/>
+              <Route path={"/signup/FIRE"} element={<FormFire/>}/>
+              <Route path={"/signup/HEALTH"} element={<FormHealth/>}/>
               <Route path={"/**"} element={<ErrorPage/>}/>
-              <Route path={"/signupCar"} element={<FormCar/>}/>
-              <Route path={"/signupFire"} element={<FormFire/>}/>
-              <Route path={"/sighupHealth"} element={<FormHealth/>}/>
           </Routes>
         </Router>
 
