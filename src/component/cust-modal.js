@@ -30,7 +30,8 @@ export default function CustModal({_show, _handleShow, _id}) {
     const handleSignUp = () => {
         navigate("/signup",{
             state:{
-                type : insurance.type,
+                id : _id,
+                type : insurance.type
             }
         });
     }

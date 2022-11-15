@@ -4,31 +4,51 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {Container} from "react-bootstrap";
+import {findCheckedIndex, getBuildingTypeFromCheckedForm} from "../utils/convert-values";
+import baseAxios from "../utils/cust-axios";
 
 export default function FormFire() {
     const [validated, setValidated] = useState(false);
+    const [id, setId] = useState();
+    const [customerDto, setCustomerDto] = useState(Object);
+    const [premium,setPremium] = useState();
 
-    // const navigate = useNavigate();
-    // const location = ueLocation()
+    const location = useLocation()
 
-    // useEffect(()=>{
-    // //    location.state에서 type을 받아 오기.
-    // },[])
+    useEffect(() => {
+        if (location.state.customerDto !== undefined) {
+            setCustomerDto(location.state.customerDto);
+            setId(location.state.id);
+        }
+    }, [])
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
-        console.log(form);
-        console.log(form.nnn.value)
         event.preventDefault();
         if (form.checkValidity() === false) {
             event.stopPropagation();
         }
-        // TODO -> data set을 다음 페이지로 넘겨야 함.
-        // navigate() -> 다음 페이지 및 종류를 선택해서 보내야 함.
-        // 종류는 그전에서 받아서 오는게 좋을 듯 하네
-        // name.value로 받아올 수 있음.
+
+        const contractDto = {
+            isSelfOwned : form.isSelfOwned[0].checked,
+            isActualResidence: form.isActualResidence[0].checked,
+            buildingArea : form.buildingArea.value,
+            collateralAmount : form.collateralAmount.value,
+            buildingType : getBuildingTypeFromCheckedForm(form.buildingType)
+        }
+
+        baseAxios().get(`/cust/inquire-health/${id}`,{
+            data : {
+                buildingType: contractDto.buildingType,
+                collateralAmount : contractDto.collateralAmount
+            }
+        })
+            .then(response => {
+                setPremium(response.data.premium);
+            }).catch(err => console.error(err));
+
         setValidated(true);
 
     };
@@ -36,35 +56,25 @@ export default function FormFire() {
     return (
         <Container className={"w-75"}>
             <h4 className={"mb-3 mt-3"}>화재보험 정보 입력</h4>
-        <Form noValidate validated={validated} onSubmit={handleSubmit}>
-            <Form.Group className={"mb-3"}>
-                <Form.Label>자가여부</Form.Label>
-                <Form.Check
-                    inline
-                    label="예"
-                    name="group1"
-                    type='radio'
-                    id={`inline-1`}
-                />
-                <Form.Check
-                    inline
-                    label="아니요"
-                    name="group1"
-                    type='radio'
-                    id={`inline-2`}
-                />
-            </Form.Group>
+            <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                <Form.Group className={"mb-3"}>
+                    <div>
+                        <Form.Label>자가여부</Form.Label>
+                    </div>
+                    <Form.Check inline label="예" name="isSelfOwned" type='radio' required/>
+                    <Form.Check inline label="아니요" name="isSelfOwned" type='radio' required/>
+                </Form.Group>
 
                 <Form.Group className={"mb-3"}>
-                    <Form.Label>건물종류</Form.Label>
-                    <Form.Control
-                        required
-                        type="text"
-                        placeholder="건물종류"
-                    />
-                    <Form.Control.Feedback>사용 가능합니다!</Form.Control.Feedback>
+                    <div>
+                        <Form.Label>건물종류</Form.Label>
+                    </div>
+                    <Form.Check inline label="상업용" name="buildingType" type='radio' required/>
+                    <Form.Check inline label="산업용" name="buildingType" type='radio' required/>
+                    <Form.Check inline label="기관용" name="buildingType" type='radio' required/>
+                    <Form.Check inline label="거주용" name="buildingType" type='radio' required/>
                     <Form.Control.Feedback type="invalid">
-                        주어진 형식으로 건물종류를 입력해주세요
+                        건물 종류를 선택해주세요
                     </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group className={"mb-3"}>
@@ -74,6 +84,7 @@ export default function FormFire() {
                             type="number"
                             placeholder="주택면적"
                             aria-describedby="inputGroupPrepend"
+                            name = "buildingArea"
                             required
                         />
                         <Form.Control.Feedback type="invalid">
@@ -82,41 +93,31 @@ export default function FormFire() {
                     </InputGroup>
                 </Form.Group>
 
-            <Form.Group className={"mb-3"}>
-                <Form.Label>실거주 여부</Form.Label>
-                <Form.Check
-                    inline
-                    label="예"
-                    name="group2"
-                    type='radio'
-                    id={`inline-1`}
-                />
-                <Form.Check
-                    inline
-                    label="아니요"
-                    name="group2"
-                    type='radio'
-                    id={`inline-2`}
-                />
-            </Form.Group>
-            <Form.Group className={"mb-3"}>
-                <Form.Label>담보금액</Form.Label>
-                <Form.Control
-                    type="number"
-                    placeholder="담보금액"
-                    aria-describedby="inputGroupPrepend"
-                    required
-                />
-                <Form.Control.Feedback type="invalid">
-                    담보금액 형식에 맞춰 주세요
-                </Form.Control.Feedback>
+                <Form.Group className={"mb-3"}>
+                    <div>
+                        <Form.Label>실거주 여부</Form.Label>
+                    </div>
+                    <Form.Check inline label="예" name="isActualResidence" type='radio' required/>
+                    <Form.Check inline label="아니요" name="isActualResidence" type='radio' required/>
+                </Form.Group>
+                <Form.Group className={"mb-3"}>
+                    <Form.Label>담보금액</Form.Label>
+                    <Form.Control
+                        type="number"
+                        placeholder="담보금액"
+                        name={"collateralAmount"}
+                        required
+                    />
+                    <Form.Control.Feedback type="invalid">
+                        담보금액 형식에 맞춰 주세요
+                    </Form.Control.Feedback>
 
-            </Form.Group>
-            <div className={"flex_box flex_box_end"}>
-                <Button type="button" variant={"danger"}>취소하기</Button>
-                <Button type="submit">다음</Button>
-            </div>
-        </Form>
+                </Form.Group>
+                <div className={"flex_box flex_box_end"}>
+                    <Button type="button" variant={"danger"}>취소하기</Button>
+                    <Button type="submit">다음</Button>
+                </div>
+            </Form>
         </Container>
 
     );

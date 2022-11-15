@@ -14,13 +14,16 @@ import {Col, Container, InputGroup, Row} from "react-bootstrap";
 
 export default function FormExample() {
     const [validated, setValidated] = useState(false);
-    const [insuranceType, setInsuranceType] = useState();
+    const [insuranceInfo, setInsuranceInfo] = useState(Object);
     const navigate = useNavigate();
     const location = useLocation()
 
     useEffect(() => {
          if(location.state.type!==undefined)
-             setInsuranceType(location.state.type)
+             setInsuranceInfo({
+                 id : location.state.id,
+                 type : location.state.type
+             })
     }, [])
 
     const handleSubmit = (event) => {
@@ -39,9 +42,10 @@ export default function FormExample() {
         }
         console.log(customerDto)
         setValidated(true);
-        navigate(`/signup/${insuranceType}`, {
+        navigate(`/signup/${insuranceInfo.type}`, {
             state: {
-                customerDto
+                customerDto,
+                id : insuranceInfo.id
             },
             replace: true
         })

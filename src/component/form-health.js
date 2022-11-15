@@ -1,19 +1,30 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import {Container} from "react-bootstrap";
+import {useLocation} from "react-router-dom";
+import baseAxios from "../utils/cust-axios";
 
 export default function FormHealth() {
     const [validated, setValidated] = useState(false);
+    const [id,setId] = useState();
+    const [customerDto, setCustomerDto] = useState(Object);
+    const [healthContractDto, setHealthContractDto] = useState(Object);
+    const [checkedDisease, setCheckedDisease] = useState(true)
+    const [riskCount, setRiskCount] = useState(0);
+    const [premium,setPremium] = useState(0);
 
-    // const navigate = useNavigate();
-    // const location = ueLocation()
+    const location = useLocation()
 
-    // useEffect(()=>{
-    // //    location.state에서 type을 받아 오기.
-    // },[])
+    useEffect(() => {
+        if (location.state.customerDto !== undefined) {
+            setCustomerDto(location.state.customerDto);
+            setId(location.state.id);
+        }
+
+    }, [])
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
@@ -21,12 +32,37 @@ export default function FormHealth() {
         if (form.checkValidity() === false) {
             event.stopPropagation();
         }
-        // TODO -> data set을 다음 페이지로 넘겨야 함.
-        // navigate() -> 다음 페이지 및 종류를 선택해서 보내야 함.
-        // 종류는 그전에서 받아서 오는게 좋을 듯 하네
-        // name.value로 받아올 수 있음.
-        setValidated(true);
+        const contractInfo = {
+            height : form.height.value,
+            weight : form.weight.value,
+            isDrinking : form.isDrinking[0].checked,
+            isSmoking : form.isSmoking[0].checked,
+            isDriving : form.isDriving[0].checked,
+            isDangerActivity: form.isDangerActivity[0].checked,
+            isHavingDisease : form.isHavingDisease[0].checked,
+            isTakingDrug : form.isTakingDrug[0].checked,
+            diseaseDetail : form.diseaseDetail.value
+        };
 
+        setHealthContractDto(contractInfo);
+        console.log(contractInfo)
+
+        let map = Object.keys(contractInfo).map(key =>  contractInfo[key]);
+        map.forEach(v => {
+            if(v===true)
+                setRiskCount(prev => prev+1);
+        })
+
+        baseAxios().get(`/cust/inquire-health/${id}`,{
+            data : {
+                ssn:customerDto.ssn,
+                riskCount: riskCount
+            }
+        })
+            .then(response => {
+                setPremium(response.data.premium);
+            }).catch(err => console.error(err));
+        setValidated(true);
     };
 
     return (
@@ -36,11 +72,10 @@ export default function FormHealth() {
                 <Row className="mb-3">
                     <Form.Group as={Col} md="6" controlId="validationCustomUsername">
                         <Form.Label>키</Form.Label>
-
                             <Form.Control
                                 type="number"
+                                name={"height"}
                                 placeholder="키"
-                                aria-describedby="inputGroupPrepend"
                                 required
                             />
                             <Form.Control.Feedback type="invalid">
@@ -53,6 +88,7 @@ export default function FormHealth() {
 
                             <Form.Control
                                 type="number"
+                                name={"weight"}
                                 placeholder="몸무게"
                                 aria-describedby="inputGroupPrepend"
                                 required
@@ -69,16 +105,18 @@ export default function FormHealth() {
                         <Form.Check
                             inline
                             label="예"
-                            name="group1"
+                            name="isSmoking"
                             type='radio'
                             id={`inline-1`}
+                            required
                         />
                         <Form.Check
                             inline
                             label="아니요"
-                            name="group1"
+                            name="isSmoking"
                             type='radio'
                             id={`inline-2`}
+                            required
                         />
 
                     </Form.Group>
@@ -89,16 +127,18 @@ export default function FormHealth() {
                         <Form.Check
                             inline
                             label="예"
-                            name="group2"
+                            name="isDrinking"
                             type='radio'
                             id={`inline-1`}
+                            required
                         />
                         <Form.Check
                             inline
                             label="아니요"
-                            name="group2"
+                            name="isDrinking"
                             type='radio'
                             id={`inline-2`}
+                            required
                         />
 
                     </Form.Group>
@@ -108,16 +148,18 @@ export default function FormHealth() {
                         <Form.Check
                             inline
                             label="예"
-                            name="group3"
+                            name="isDriving"
                             type='radio'
                             id={`inline-1`}
+                            required
                         />
                         <Form.Check
                             inline
                             label="아니요"
-                            name="group3"
+                            name="isDriving"
                             type='radio'
                             id={`inline-2`}
+                            required
                         />
 
                     </Form.Group>
@@ -129,16 +171,18 @@ export default function FormHealth() {
                         <Form.Check
                             inline
                             label="예"
-                            name="group4"
+                            name="isDangerActivity"
                             type='radio'
                             id={`inline-1`}
+                            required
                         />
                         <Form.Check
                             inline
                             label="아니요"
-                            name="group4"
+                            name="isDangerActivity"
                             type='radio'
                             id={`inline-2`}
+                            required
                         />
 
                     </Form.Group>
@@ -149,16 +193,18 @@ export default function FormHealth() {
                         <Form.Check
                             inline
                             label="예"
-                            name="group5"
+                            name="isTakingDrug"
                             type='radio'
                             id={`inline-5`}
+                            required
                         />
                         <Form.Check
                             inline
                             label="아니요"
-                            name="group5"
+                            name="isTakingDrug"
                             type='radio'
                             id={`inline-2`}
+                            required
                         />
 
                     </Form.Group>
@@ -169,16 +215,20 @@ export default function FormHealth() {
                         <Form.Check
                             inline
                             label="예"
-                            name="group6"
+                            name="isHavingDisease"
                             type='radio'
                             id={`inline-1`}
+                            required
+                            onClick={() => setCheckedDisease(false)}
                         />
                         <Form.Check
                             inline
                             label="아니요"
-                            name="group6"
+                            name="isHavingDisease"
                             type='radio'
                             id={`inline-2`}
+                            required
+                            onClick={() => setCheckedDisease(true)}
                         />
 
                     </Form.Group>
@@ -186,18 +236,17 @@ export default function FormHealth() {
                 <Form.Group className={"mb-3"}>
                     <Form.Label>상세 내용</Form.Label>
                     <Form.Control
-                        type="email"
+                        type="text"
+                        name="diseaseDetail"
                         placeholder="상세 내용"
                         aria-describedby="inputGroupPrepend"
-                        required
+                        disabled={checkedDisease}
                     />
                     <Form.Control.Feedback type="invalid">
                         형식에 맞춰 주세요
                     </Form.Control.Feedback>
                 </Form.Group>
 
-                <Form.Group as={Col} md="4" controlId="validationCustomUsername">
-                </Form.Group>
                 <div className={"flex_box flex_box_end"}>
                     <Button type="button" variant={"danger"}>취소하기</Button>
                     <Button type="submit">다음</Button>

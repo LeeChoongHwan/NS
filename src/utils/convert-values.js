@@ -5,6 +5,17 @@ export  function convertValues(obj) {
     });
 }
 
+export function findCheckedIndex(arrayForm){
+    let index = 0;
+    for (let element of arrayForm) {
+        if(element.checked){
+            break;
+        }
+        index++;
+    }
+    return index;
+}
+
 export function convertInsuranceType(type) {
     switch (type) {
         case 'HEALTH':
@@ -14,4 +25,45 @@ export function convertInsuranceType(type) {
         case 'FIRE':
             return '화재보험';
     }
+}
+export function convertIndexToCarType(index){
+    switch (index) {
+        case 0:
+            return 'URBAN';
+        case 1:
+            return 'SUBCOMPACT';
+        case 2:
+            return 'COMPACT';
+        case 3:
+            return 'MIDSIZE';
+        case 4:
+            return 'LARGESIZE';
+        case 5:
+            return 'FULLSIZE';
+        case 6:
+            return 'SPORTS';
+    }
+}
+
+export function convertIndexToBuildingType(index){
+    switch (index) {
+        case 0:
+            return 'COMMERCIAL';
+        case 1:
+            return 'INDUSTRIAL';
+        case 2:
+            return 'INSTITUTIONAL';
+        case 3:
+            return 'RESIDENTIAL';
+    }
+}
+
+export function getBuildingTypeFromCheckedForm(form) {
+    let index = findCheckedIndex(form);
+    return convertIndexToBuildingType(index);
+}
+
+export function getCarTypeFromCheckedForm(form) {
+    let index = findCheckedIndex(form);
+    return convertIndexToCarType(index);
 }

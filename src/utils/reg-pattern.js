@@ -5,5 +5,6 @@ const phone_second_pattern = "^[0-9]{3,4}$"
 const phone_last_pattern = "^[0-9]{4}$"
 const email_front_pattern = "^[a-zA-Z0-9]+";
 const email_back_pattern = "^[a-z]+.[a-z]+$"
+const car_no_pattern = "^[0-9]{2,3}[가-힣][\\s]{0,1}[0-9]{4}$";
 export {ssn_front_pattern, ssn_back_pattern, phone_first_pattern, phone_second_pattern, phone_last_pattern
-,email_front_pattern, email_back_pattern};
+,email_front_pattern, email_back_pattern, car_no_pattern};
