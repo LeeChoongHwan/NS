@@ -4,3 +4,6 @@
 .flex_box{
     display: flex;
 }
+.flex_box_end{
+    justify-content: end;
+}

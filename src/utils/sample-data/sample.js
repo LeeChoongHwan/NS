@@ -7,17 +7,17 @@ export function InsuranceListSample() {
         },
         body: [
             {
-                num: 1,
+                id: 1,
                 name: "건강보험1",
                 type: "건강보험"
             },
             {
-                num: 2,
+                id: 2,
                 name: "자동차보험1",
                 type: "자동차보험"
             },
             {
-                num: 3,
+                id: 3,
                 name: "화재보험1",
                 type: "화재보험"
             }

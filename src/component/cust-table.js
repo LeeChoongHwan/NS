@@ -1,5 +1,5 @@
 import {Table} from "react-bootstrap";
-import convertValues from "../utils/convert-values";
+import {convertValues} from "../utils/convert-values";
 import CustModal from "./cust-modal";
 
 
