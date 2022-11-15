@@ -3,6 +3,9 @@ import InsuranceList from "./pages/Insurance-list";
 import ErrorPage from "./utils/error-page";
 import SignUpForm from "./pages/sign-up-form";
 import FormExample from "./component/form-ex";
+import FormCar from "./component/form-car";
+import FormHealth from "./component/form-health";
+import FormFire from "./component/form-fire";
 
 
 function App() {
@@ -14,6 +17,9 @@ function App() {
             <Route path={"/"} element={<InsuranceList/>}/>
               <Route path={"/signup"} element={<FormExample/>}/>
               <Route path={"/**"} element={<ErrorPage/>}/>
+              <Route path={"/signupCar"} element={<FormCar/>}/>
+              <Route path={"/signupFire"} element={<FormFire/>}/>
+              <Route path={"/sighupHealth"} element={<FormHealth/>}/>
           </Routes>
         </Router>
 

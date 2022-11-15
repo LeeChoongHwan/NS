@@ -11,3 +11,11 @@ I
 src/pages/sign-up-form.js,1\8\187b7f2f69f7d351bdeb2e44f79005beac03f32d
 G
 src/utils/cust-axios.js,2\e\2e2fda4cdad3141012617e37407d8d97b1d872c5
+G
+src/utils/error-page.js,4\2\42534930f2d0ee72631c270a7718e9343d6b411c
+C
+src/utils/style.css,3\d\3dce6edd893869f2a956bb01638c5f3dc9f55404
+A
+src/setupTests.js,b\7\b7e8d8f421068b8d51c89805d2035e747be2ff17
+F
+src/reportWebVitals.js,1\c\1ce5e63ae1582ed0b425c46001299a07515efbf9
