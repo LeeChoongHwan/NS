@@ -43,7 +43,7 @@ export default function FormFire() {
                 collateralAmount : form.collateralAmount.value,
                 buildingType : getBuildingTypeFromCheckedForm(form.buildingType)
             }
-            setFireContractDto(contractDto);
+
 
             const config = {
                 method: 'post',
@@ -61,6 +61,8 @@ export default function FormFire() {
                 .then(function (response) {
                     setPremium(response.data.premium);
                     setPremiumModalShow(true);
+                    contractDto.premium = response.data.premium;
+                    setFireContractDto(contractDto);
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -79,7 +81,7 @@ export default function FormFire() {
                 customerDto,
                 contractDto : fireContractDto,
                 id,
-                type
+                type,
             },
             replace : true
         })

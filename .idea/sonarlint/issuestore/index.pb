@@ -1,8 +1,4 @@
 
-A
-package-lock.json,f\a\fa288d1472d29beccb489a676f68739ad365fc47
-<
-package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
 L
 src/component/cust-table.css,8\1\81b21d6677bdb1772637d9d293aac4c5d2c53ece
 <
@@ -23,3 +19,7 @@ G
 src/utils/cust-axios.js,2\e\2e2fda4cdad3141012617e37407d8d97b1d872c5
 O
 src/utils/sample-data/sample.js,8\d\8dea656821cd7bb3c2bd714d9f6f9d048ea40ed1
+K
+src/component/cust-modal.js,1\8\1855e08ed83b985f73577d695f4896eb633086bd
+N
+src/component/premium_modal.js,9\a\9aab1bdc73d7329d09a643910184ee53d892f9a6

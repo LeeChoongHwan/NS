@@ -31,10 +31,18 @@ export default function SignUpForm() {
         if (form.checkValidity() === false) {
             event.stopPropagation();
         } else {
-            baseAxios().post(`${getUrlByInsuranceType(type, id)}`,
-                getDataByInsuranceType(type, customerDto, contractDto))
+            const data = getDataByInsuranceType(type, customerDto, contractDto);
+            const url = getUrlByInsuranceType(type, id);
+
+            baseAxios().post(`${url}`,
+                data)
                 .then((response) => {
-                    navigate("/", {replace: true})
+                    baseAxios().post(`/user/sign-up/${response.data.customerId}`,{
+                        userId:form.loginId.value,
+                        password:form.password.value
+                    }).then(() =>{
+                        navigate("/", {replace: true})
+                    }).catch((error) => {console.error(error)})
                 }).catch((error) => {
                 console.error(error)
             })
@@ -48,6 +56,7 @@ export default function SignUpForm() {
                     <Form.Group className={"mb-3"}>
                         <Form.Control
                             required
+                            name="loginId"
                             type="text"
                             placeholder="Login Id"
 
@@ -58,6 +67,7 @@ export default function SignUpForm() {
                     <Form.Group className={"mb-3"}>
                         <Form.Control
                             required
+                            name="password"
                             type="password"
                             placeholder="Login password"
                         />

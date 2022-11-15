@@ -44,7 +44,7 @@ export default function FormCar() {
                 carNo : form.carNo.value,
                 carType : getCarTypeFromCheckedForm(form.car_type)
             }
-            setCarContractDto(contractDto);
+
             baseAxios().post(`/cust/inquire-car/${id}`,{
                     ssn:customerDto.ssn,
                     value: contractDto.value
@@ -52,6 +52,8 @@ export default function FormCar() {
                 .then(response => {
                     setPremium(response.data.premium);
                     setPremiumModalShow(true);
+                    contractDto.premium = response.data.premium;
+                    setCarContractDto(contractDto);
                 }).catch(err => console.error(err));
 
         }
@@ -67,7 +69,8 @@ export default function FormCar() {
                 customerDto,
                 contractDto : carContractDto,
                 id,
-                type
+                type,
+
             },
             replace : true
         })

@@ -48,7 +48,7 @@ export default function FormHealth() {
                 diseaseDetail : form.diseaseDetail.value
             };
 
-            setHealthContractDto(contractInfo);
+
 
             let map = Object.keys(contractInfo).map(key =>  contractInfo[key]);
             let riskCount= 0;
@@ -66,6 +66,8 @@ export default function FormHealth() {
                 .then(response => {
                     setPremium(response.data.premium);
                     setPremiumModalShow(true);
+                    contractInfo.premium = response.data.premium;
+                    setHealthContractDto(contractInfo);
                 }).catch(err => console.error(err));
         }
         setValidated(true);
