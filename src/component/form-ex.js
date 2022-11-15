@@ -45,7 +45,8 @@ export default function FormExample() {
         navigate(`/signup/${insuranceInfo.type}`, {
             state: {
                 customerDto,
-                id : insuranceInfo.id
+                id : insuranceInfo.id,
+                type : insuranceInfo.type
             },
             replace: true
         })

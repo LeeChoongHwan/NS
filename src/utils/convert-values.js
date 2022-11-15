@@ -67,3 +67,34 @@ export function getCarTypeFromCheckedForm(form) {
     let index = findCheckedIndex(form);
     return convertIndexToCarType(index);
 }
+
+export function getUrlByInsuranceType(type,id){
+    switch (type) {
+        case 'HEALTH':
+            return `/cust/register-health/${id}`;
+        case 'CAR':
+            return `/cust/register-car/${id}`;
+        case 'FIRE':
+            return `/cust/register-fire/${id}`;
+    }
+}
+
+export function getDataByInsuranceType(type, customerDto, contractDto){
+    switch (type) {
+        case 'HEALTH':
+            return {
+                customerDto,
+                healthContractDto : contractDto
+            };
+        case 'CAR':
+            return {
+                customerDto,
+               carContractDto : contractDto
+            };
+        case 'FIRE':
+            return {
+                customerDto,
+                fireContractDto : contractDto
+            };
+    }
+}

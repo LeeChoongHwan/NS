@@ -1,57 +1,89 @@
 import React, {useEffect, useState} from 'react';
 import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
-import Row from 'react-bootstrap/Row';
 import {useLocation, useNavigate} from "react-router-dom";
 import {Container} from "react-bootstrap";
-import {findCheckedIndex, getBuildingTypeFromCheckedForm} from "../utils/convert-values";
+import {getBuildingTypeFromCheckedForm} from "../utils/convert-values";
 import baseAxios from "../utils/cust-axios";
+import PremiumModal from "./premium_modal";
+import axios from "axios";
 
 export default function FormFire() {
     const [validated, setValidated] = useState(false);
     const [id, setId] = useState();
     const [customerDto, setCustomerDto] = useState(Object);
+    const [fireContractDto, setFireContractDto] = useState(Object);
     const [premium,setPremium] = useState();
+    const [premiumModalShow, setPremiumModalShow] = useState(false);
+    const [type, setType] = useState();
 
+    const navigate = useNavigate()
     const location = useLocation()
 
     useEffect(() => {
         if (location.state.customerDto !== undefined) {
             setCustomerDto(location.state.customerDto);
             setId(location.state.id);
+            setType(location.state.type);
         }
     }, [])
-
     const handleSubmit = (event) => {
         const form = event.currentTarget;
         event.preventDefault();
         if (form.checkValidity() === false) {
             event.stopPropagation();
-        }
+            // return;
+        }else{
 
-        const contractDto = {
-            isSelfOwned : form.isSelfOwned[0].checked,
-            isActualResidence: form.isActualResidence[0].checked,
-            buildingArea : form.buildingArea.value,
-            collateralAmount : form.collateralAmount.value,
-            buildingType : getBuildingTypeFromCheckedForm(form.buildingType)
-        }
-
-        baseAxios().get(`/cust/inquire-health/${id}`,{
-            data : {
-                buildingType: contractDto.buildingType,
-                collateralAmount : contractDto.collateralAmount
+            const contractDto = {
+                isSelfOwned : form.isSelfOwned[0].checked,
+                isActualResidence: form.isActualResidence[0].checked,
+                buildingArea : form.buildingArea.value,
+                collateralAmount : form.collateralAmount.value,
+                buildingType : getBuildingTypeFromCheckedForm(form.buildingType)
             }
-        })
-            .then(response => {
-                setPremium(response.data.premium);
-            }).catch(err => console.error(err));
+            setFireContractDto(contractDto);
 
+            const config = {
+                method: 'post',
+                url: `http://localhost:8080/cust/inquire-fire/${id}`,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: {
+                    buildingType: contractDto.buildingType,
+                    collateralAmount : contractDto.collateralAmount
+                }
+            };
+
+            axios(config)
+                .then(function (response) {
+                    setPremium(response.data.premium);
+                    setPremiumModalShow(true);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+
+        }
+
+        console.log(premiumModalShow)
         setValidated(true);
-
     };
+
+    const moveToSignUpPage = () => {
+        navigate("/signup/user",{
+            state : {
+                customerDto,
+                contractDto : fireContractDto,
+                id,
+                type
+            },
+            replace : true
+        })
+    }
 
     return (
         <Container className={"w-75"}>
@@ -118,6 +150,9 @@ export default function FormFire() {
                     <Button type="submit">다음</Button>
                 </div>
             </Form>
+            <PremiumModal _show={premiumModalShow} _setShow ={setPremiumModalShow}
+            _signUp={moveToSignUpPage} _premium={premium}
+            />
         </Container>
 
     );

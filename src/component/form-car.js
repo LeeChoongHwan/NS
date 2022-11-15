@@ -2,11 +2,12 @@ import React, {useEffect, useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {Container} from "react-bootstrap";
 import {car_no_pattern} from "../utils/reg-pattern";
 import {convertIndexToCarType, findCheckedIndex, getCarTypeFromCheckedForm} from "../utils/convert-values";
 import baseAxios from "../utils/cust-axios";
+import PremiumModal from "./premium_modal";
 
 export default function FormCar() {
     const [validated, setValidated] = useState(false);
@@ -15,12 +16,16 @@ export default function FormCar() {
     const [carContractDto, setCarContractDto] = useState(Object);
     const [id,setId] = useState();
     const [premium,setPremium] = useState(0);
+    const [premiumModalShow, setPremiumModalShow] = useState(false);
+    const  [type ,setType] = useState();
+    const navigate = useNavigate()
     const location = useLocation()
 
     useEffect(() => {
         if (location.state.customerDto !== undefined) {
             setCustomerDto(location.state.customerDto);
             setId(location.state.id);
+            setType(location.state.type);
         }
     }, [])
 
@@ -30,35 +35,43 @@ export default function FormCar() {
 
         if (form.checkValidity() === false) {
             event.stopPropagation();
-        }
+        }else{
 
-
-
-
-        const contractDto = {
-            value : form.value.value,
-            modelName : form.modelName.value,
-            modelYear : form.modelYear.value,
-            carNo : form.carNo.value,
-            carType : getCarTypeFromCheckedForm(form.carType)
-        }
-
-        setCarContractDto(contractDto);
-
-        baseAxios().get(`/cust/inquire-car/${id}`,{
-            data : {
-                ssn:customerDto.ssn,
-                value: contractDto.value
+            const contractDto = {
+                value : form.value.value,
+                modelName : form.modelName.value,
+                modelYear : form.modelYear.value,
+                carNo : form.carNo.value,
+                carType : getCarTypeFromCheckedForm(form.car_type)
             }
-        })
-            .then(response => {
-                setPremium(response.data.premium);
-            }).catch(err => console.error(err));
+            setCarContractDto(contractDto);
+            baseAxios().post(`/cust/inquire-car/${id}`,{
+                    ssn:customerDto.ssn,
+                    value: contractDto.value
+            })
+                .then(response => {
+                    setPremium(response.data.premium);
+                    setPremiumModalShow(true);
+                }).catch(err => console.error(err));
+
+        }
 
 
         setValidated(true);
 
     };
+
+    const moveToSignUpPage = () => {
+        navigate("/signup/user",{
+            state : {
+                customerDto,
+                contractDto : carContractDto,
+                id,
+                type
+            },
+            replace : true
+        })
+    }
 
     return (
         <Container className={"w-75"}>
@@ -157,6 +170,10 @@ export default function FormCar() {
                     <Button type="button" variant={"danger"}>취소하기</Button>
                     <Button type="submit">다음</Button>
                 </div>
-            </Form> </Container>
+            </Form>
+            <PremiumModal _show={premiumModalShow} _setShow ={setPremiumModalShow}
+                          _signUp={moveToSignUpPage} _premium={premium}
+            />
+        </Container>
     );
 }

@@ -4,8 +4,9 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import {Container} from "react-bootstrap";
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import baseAxios from "../utils/cust-axios";
+import PremiumModal from "./premium_modal";
 
 export default function FormHealth() {
     const [validated, setValidated] = useState(false);
@@ -13,15 +14,17 @@ export default function FormHealth() {
     const [customerDto, setCustomerDto] = useState(Object);
     const [healthContractDto, setHealthContractDto] = useState(Object);
     const [checkedDisease, setCheckedDisease] = useState(true)
-    const [riskCount, setRiskCount] = useState(0);
     const [premium,setPremium] = useState(0);
-
+    const [premiumModalShow, setPremiumModalShow] = useState(false);
+    const [type,setType]=useState();
+    const navigate = useNavigate()
     const location = useLocation()
 
     useEffect(() => {
         if (location.state.customerDto !== undefined) {
             setCustomerDto(location.state.customerDto);
             setId(location.state.id);
+            setType(location.state.type);
         }
 
     }, [])
@@ -31,39 +34,55 @@ export default function FormHealth() {
         event.preventDefault();
         if (form.checkValidity() === false) {
             event.stopPropagation();
-        }
-        const contractInfo = {
-            height : form.height.value,
-            weight : form.weight.value,
-            isDrinking : form.isDrinking[0].checked,
-            isSmoking : form.isSmoking[0].checked,
-            isDriving : form.isDriving[0].checked,
-            isDangerActivity: form.isDangerActivity[0].checked,
-            isHavingDisease : form.isHavingDisease[0].checked,
-            isTakingDrug : form.isTakingDrug[0].checked,
-            diseaseDetail : form.diseaseDetail.value
-        };
 
-        setHealthContractDto(contractInfo);
-        console.log(contractInfo)
+        }else{
+            const contractInfo = {
+                height : form.height.value,
+                weight : form.weight.value,
+                isDrinking : form.isDrinking[0].checked,
+                isSmoking : form.isSmoking[0].checked,
+                isDriving : form.isDriving[0].checked,
+                isDangerActivity: form.isDangerActivity[0].checked,
+                isHavingDisease : form.isHavingDisease[0].checked,
+                isTakingDrug : form.isTakingDrug[0].checked,
+                diseaseDetail : form.diseaseDetail.value
+            };
 
-        let map = Object.keys(contractInfo).map(key =>  contractInfo[key]);
-        map.forEach(v => {
-            if(v===true)
-                setRiskCount(prev => prev+1);
-        })
+            setHealthContractDto(contractInfo);
 
-        baseAxios().get(`/cust/inquire-health/${id}`,{
-            data : {
+            let map = Object.keys(contractInfo).map(key =>  contractInfo[key]);
+            let riskCount= 0;
+            map.forEach(v => {
+                if (v === true) {
+                    riskCount++;
+                }
+            })
+            baseAxios().post(`/cust/inquire-health/${id}`,{
+
                 ssn:customerDto.ssn,
                 riskCount: riskCount
-            }
-        })
-            .then(response => {
-                setPremium(response.data.premium);
-            }).catch(err => console.error(err));
+
+            })
+                .then(response => {
+                    setPremium(response.data.premium);
+                    setPremiumModalShow(true);
+                }).catch(err => console.error(err));
+        }
         setValidated(true);
     };
+
+    const moveToSignUpPage = () => {
+        navigate("/signup/user",{
+            state : {
+                customerDto,
+                contractDto : healthContractDto,
+                id,
+                type
+            },
+            replace : true
+        })
+    }
+
 
     return (
         <Container className={"w-75"}>
@@ -251,6 +270,10 @@ export default function FormHealth() {
                     <Button type="button" variant={"danger"}>취소하기</Button>
                     <Button type="submit">다음</Button>
                 </div>
-            </Form></Container>
+            </Form>
+            <PremiumModal _show={premiumModalShow} _setShow ={setPremiumModalShow}
+                          _signUp={moveToSignUpPage} _premium={premium}
+            />
+        </Container>
     );
 }

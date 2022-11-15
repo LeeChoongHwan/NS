@@ -18,6 +18,7 @@ function App() {
               <Route path={"/signup/CAR"} element={<FormCar/>}/>
               <Route path={"/signup/FIRE"} element={<FormFire/>}/>
               <Route path={"/signup/HEALTH"} element={<FormHealth/>}/>
+              <Route path={"/signup/user"} element={<SignUpForm/>}/>
               <Route path={"/**"} element={<ErrorPage/>}/>
           </Routes>
         </Router>
