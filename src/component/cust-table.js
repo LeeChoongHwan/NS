@@ -18,18 +18,20 @@ export default function  CustTable({_head, _body,_rowAction, _modalProps}) {
                 </tr>
             </thead>
             <tbody>
-            {_body.map(v=>{
-                return     <tr className={"hover_cursor"} key={v.id} onClick={_rowAction}>
+            {
+
+                _body.map(v=>{
+                return     <tr className={"hover_cursor"}  onClick={_rowAction}>
                     {
                         convertValues(v).map(v=>{
-                            return <td className={"table_cel_center"} key={v}>{v}</td>
+                            return <td className={"table_cel_center"} >{v}</td>
                         })
                     }
                 </tr>
-
             })}
             {_modalProps == null ? null :
-                <CustModal _show={_modalProps.showModal} _handleShow={_modalProps.setShowModal} _id={_modalProps.insId}></CustModal>}
+                <CustModal _show={_modalProps.showModal} _handleShow={_modalProps.setShowModal} _id={_modalProps.insId}
+                ></CustModal>}
 
             </tbody>
         </Table>

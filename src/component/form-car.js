@@ -1,37 +1,80 @@
 import React, {useEffect, useState} from 'react';
 import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
-import Row from 'react-bootstrap/Row';
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {Container} from "react-bootstrap";
+import {car_no_pattern} from "../utils/reg-pattern";
+import {convertIndexToCarType, findCheckedIndex, getCarTypeFromCheckedForm} from "../utils/convert-values";
+import baseAxios from "../utils/cust-axios";
+import PremiumModal from "./premium_modal";
 
 export default function FormCar() {
     const [validated, setValidated] = useState(false);
 
-    // const navigate = useNavigate();
-    // const location = ueLocation()
+    const [customerDto, setCustomerDto] = useState(Object);
+    const [carContractDto, setCarContractDto] = useState(Object);
+    const [id,setId] = useState();
+    const [premium,setPremium] = useState(0);
+    const [premiumModalShow, setPremiumModalShow] = useState(false);
+    const  [type ,setType] = useState();
+    const navigate = useNavigate()
+    const location = useLocation()
 
-    // useEffect(()=>{
-    // //    location.state에서 type을 받아 오기.
-    // },[])
+    useEffect(() => {
+        if (location.state.customerDto !== undefined) {
+            setCustomerDto(location.state.customerDto);
+            setId(location.state.id);
+            setType(location.state.type);
+        }
+    }, [])
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
-        console.log(form);
-        console.log(form.nnn.value)
         event.preventDefault();
+
         if (form.checkValidity() === false) {
             event.stopPropagation();
+        }else{
+
+            const contractDto = {
+                value : form.value.value,
+                modelName : form.modelName.value,
+                modelYear : form.modelYear.value,
+                carNo : form.carNo.value,
+                carType : getCarTypeFromCheckedForm(form.car_type)
+            }
+
+            baseAxios().post(`/cust/inquire-car/${id}`,{
+                    ssn:customerDto.ssn,
+                    value: contractDto.value
+            })
+                .then(response => {
+                    setPremium(response.data.premium);
+                    setPremiumModalShow(true);
+                    contractDto.premium = response.data.premium;
+                    setCarContractDto(contractDto);
+                }).catch(err => console.error(err));
+
         }
-        // TODO -> data set을 다음 페이지로 넘겨야 함.
-        // navigate() -> 다음 페이지 및 종류를 선택해서 보내야 함.
-        // 종류는 그전에서 받아서 오는게 좋을 듯 하네
-        // name.value로 받아올 수 있음.
+
+
         setValidated(true);
 
     };
+
+    const moveToSignUpPage = () => {
+        navigate("/signup/user",{
+            state : {
+                customerDto,
+                contractDto : carContractDto,
+                id,
+                type,
+
+            },
+            replace : true
+        })
+    }
 
     return (
         <Container className={"w-75"}>
@@ -40,11 +83,9 @@ export default function FormCar() {
                     <Form.Group className={"mb-3"}>
                         <Form.Label>차주</Form.Label>
                         <Form.Control
-                            name={"nnn"}
                             required
                             type="text"
                             placeholder="이름"
-                            defaultValue=""
                             pattern="^[가-힣]{2,6}"
                         />
                         <Form.Control.Feedback>사용 가능합니다!</Form.Control.Feedback>
@@ -56,9 +97,10 @@ export default function FormCar() {
                         <Form.Label>차량번호</Form.Label>
                         <InputGroup hasValidation>
                             <Form.Control
-                                type="number"
+                                type="text"
                                 placeholder="차량 번호"
-                                aria-describedby="inputGroupPrepend"
+                                name={"carNo"}
+                                pattern = {car_no_pattern}
                                 required
                             />
                             <Form.Control.Feedback type="invalid">
@@ -76,6 +118,7 @@ export default function FormCar() {
                                 placeholder="차량가액"
                                 aria-describedby="inputGroupPrepend"
                                 required
+                                name={"value"}
                             />
                             <Form.Control.Feedback type="invalid">
                                 차량 가액 입력 형식에 맞게 입력해주세요
@@ -84,10 +127,27 @@ export default function FormCar() {
                     </Form.Group>
 
                 <Form.Group className={"mb-3"}>
+                    <div>
                     <Form.Label>차종</Form.Label>
+                    </div>
+                    <Form.Check required inline  label="경형"  name="car_type" type='radio'/>
+                    <Form.Check required inline label="중형" name="car_type" type='radio'/>
+                    <Form.Check required inline label="준중형" name="car_type" type='radio'/>
+                    <Form.Check required inline label="중형" name="car_type" type='radio'/>
+                    <Form.Check required inline label="준대형" name="car_type" type='radio'/>
+                    <Form.Check required inline label="대형" name="car_type" type='radio'/>
+                    <Form.Check required inline label="스포츠카" name="car_type" type='radio'/>
+                    <Form.Control.Feedback type="invalid">
+                        차종을 선택해 주세요
+                    </Form.Control.Feedback>
+                </Form.Group>
+
+                <Form.Group className={"mb-3"}>
+                    <Form.Label>모델 이름</Form.Label>
                     <Form.Control
+                        name="modelName"
                         type="text"
-                        placeholder="차종"
+                        placeholder="모델 이름"
                         aria-describedby="inputGroupPrepend"
                         required
                     />
@@ -100,6 +160,7 @@ export default function FormCar() {
                     <Form.Label>연식</Form.Label>
                     <Form.Control
                         type="number"
+                        name={"modelYear"}
                         placeholder="연식"
                         aria-describedby="inputGroupPrepend"
                         required
@@ -107,13 +168,15 @@ export default function FormCar() {
                     <Form.Control.Feedback type="invalid">
                         연식입력 형식에 맞춰 주세요
                     </Form.Control.Feedback>
-
-                    {/* TODO   https://postcode.map.daum.net/guide*/}
                 </Form.Group>
                 <div className={"flex_box flex_box_end"}>
                     <Button type="button" variant={"danger"}>취소하기</Button>
                     <Button type="submit">다음</Button>
                 </div>
-            </Form> </Container>
+            </Form>
+            <PremiumModal _show={premiumModalShow} _setShow ={setPremiumModalShow}
+                          _signUp={moveToSignUpPage} _premium={premium}
+            />
+        </Container>
     );
 }

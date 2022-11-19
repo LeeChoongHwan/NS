@@ -14,14 +14,16 @@ import {Col, Container, InputGroup, Row} from "react-bootstrap";
 
 export default function FormExample() {
     const [validated, setValidated] = useState(false);
-    const [insuranceType, setInsuranceType] = useState();
+    const [insuranceInfo, setInsuranceInfo] = useState(Object);
     const navigate = useNavigate();
     const location = useLocation()
 
     useEffect(() => {
-        // location.state에서 type을 받아 오기.
-        //  if(location.state.type!==undefined)
-        //      setInsuranceType(location.state.type)
+         if(location.state.type!==undefined)
+             setInsuranceInfo({
+                 id : location.state.id,
+                 type : location.state.type
+             })
     }, [])
 
     const handleSubmit = (event) => {
@@ -40,9 +42,11 @@ export default function FormExample() {
         }
         console.log(customerDto)
         setValidated(true);
-        navigate(`/insurance/${insuranceType}`, {
+        navigate(`/signup/${insuranceInfo.type}`, {
             state: {
-                customerDto
+                customerDto,
+                id : insuranceInfo.id,
+                type : insuranceInfo.type
             },
             replace: true
         })
