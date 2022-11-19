@@ -6,6 +6,8 @@ import FormExample from "./component/form-ex";
 import FormCar from "./component/form-car";
 import FormHealth from "./component/form-health";
 import FormFire from "./component/form-fire";
+import SelectEmployeeClient from "./component/select-employee-client";
+
 
 
 function App() {
@@ -13,12 +15,13 @@ function App() {
       <div >
         <Router>
           <Routes>
-            <Route path={"/"} element={<FormExample/>}/>
+            <Route path={"/"} element={<InsuranceList/>}/>
               <Route path={"/signup"} element={<FormExample/>}/>
               <Route path={"/signup/CAR"} element={<FormCar/>}/>
               <Route path={"/signup/FIRE"} element={<FormFire/>}/>
               <Route path={"/signup/HEALTH"} element={<FormHealth/>}/>
               <Route path={"/**"} element={<ErrorPage/>}/>
+            
           </Routes>
         </Router>
 
