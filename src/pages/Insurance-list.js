@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import {InsuranceListSample} from "../utils/sample-data/sample";
 import baseAxios from "../utils/cust-axios";
 import {convertInsuranceType} from "../utils/convert-values";
+import {insurance_all} from "../utils/url";
 
 
 export default function InsuranceList() {
@@ -22,17 +23,13 @@ export default function InsuranceList() {
     }
     useEffect(() => {
 
-        baseAxios().get("/insurance/all")
+        baseAxios().get(insurance_all())
             .then(function (response) {
                 setList(response.data);
             })
             .catch(function (error) {
                 console.log(error);
             });
-
-
-
-
     }, [])
 const createModal = (event) => {
     setShowModal(true)

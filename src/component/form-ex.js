@@ -11,6 +11,7 @@ import {
     ssn_front_pattern
 } from "../utils/reg-pattern";
 import {Col, Container, InputGroup, Row} from "react-bootstrap";
+import {nav_home, nav_signup_type} from "../utils/url";
 
 export default function FormExample() {
     const [validated, setValidated] = useState(false);
@@ -42,7 +43,7 @@ export default function FormExample() {
         }
         console.log(customerDto)
         setValidated(true);
-        navigate(`/signup/${insuranceInfo.type}`, {
+        navigate(nav_signup_type(insuranceInfo.type), {
             state: {
                 customerDto,
                 id : insuranceInfo.id,
@@ -52,7 +53,7 @@ export default function FormExample() {
         })
     };
     const hanldeBack = () => {
-        navigate("/", {replace: true});
+        navigate(nav_home(), {replace: true});
     }
 
     return (

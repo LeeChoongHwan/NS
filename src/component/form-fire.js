@@ -8,6 +8,7 @@ import {getBuildingTypeFromCheckedForm} from "../utils/convert-values";
 import baseAxios from "../utils/cust-axios";
 import PremiumModal from "./premium_modal";
 import axios from "axios";
+import {inquire_fire, nav_signup_user} from "../utils/url";
 
 export default function FormFire() {
     const [validated, setValidated] = useState(false);
@@ -43,22 +44,10 @@ export default function FormFire() {
                 collateralAmount : form.collateralAmount.value,
                 buildingType : getBuildingTypeFromCheckedForm(form.buildingType)
             }
-
-
-            const config = {
-                method: 'post',
-                url: `http://localhost:8080/cust/inquire-fire/${id}`,
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                data: {
-                    buildingType: contractDto.buildingType,
-                    collateralAmount : contractDto.collateralAmount
-                }
-            };
-
-            axios(config)
-                .then(function (response) {
+            baseAxios().post(inquire_fire(id),{
+                buildingType: contractDto.buildingType,
+                collateralAmount : contractDto.collateralAmount
+            }).then(function (response) {
                     setPremium(response.data.premium);
                     setPremiumModalShow(true);
                     contractDto.premium = response.data.premium;
@@ -67,16 +56,12 @@ export default function FormFire() {
                 .catch(function (error) {
                     console.log(error);
                 });
-
-
         }
-
-        console.log(premiumModalShow)
         setValidated(true);
     };
 
     const moveToSignUpPage = () => {
-        navigate("/signup/user",{
+        navigate(nav_signup_user(),{
             state : {
                 customerDto,
                 contractDto : fireContractDto,

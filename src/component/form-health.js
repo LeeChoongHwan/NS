@@ -7,6 +7,7 @@ import {Container} from "react-bootstrap";
 import {useLocation, useNavigate} from "react-router-dom";
 import baseAxios from "../utils/cust-axios";
 import PremiumModal from "./premium_modal";
+import {inquire_health, nav_signup_user} from "../utils/url";
 
 export default function FormHealth() {
     const [validated, setValidated] = useState(false);
@@ -57,11 +58,9 @@ export default function FormHealth() {
                     riskCount++;
                 }
             })
-            baseAxios().post(`/cust/inquire-health/${id}`,{
-
+            baseAxios().post(inquire_health(id),{
                 ssn:customerDto.ssn,
                 riskCount: riskCount
-
             })
                 .then(response => {
                     setPremium(response.data.premium);
@@ -74,7 +73,7 @@ export default function FormHealth() {
     };
 
     const moveToSignUpPage = () => {
-        navigate("/signup/user",{
+        navigate(nav_signup_user(),{
             state : {
                 customerDto,
                 contractDto : healthContractDto,

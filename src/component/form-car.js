@@ -8,6 +8,7 @@ import {car_no_pattern} from "../utils/reg-pattern";
 import {convertIndexToCarType, findCheckedIndex, getCarTypeFromCheckedForm} from "../utils/convert-values";
 import baseAxios from "../utils/cust-axios";
 import PremiumModal from "./premium_modal";
+import {inquire_car, nav_signup_user} from "../utils/url";
 
 export default function FormCar() {
     const [validated, setValidated] = useState(false);
@@ -45,7 +46,7 @@ export default function FormCar() {
                 carType : getCarTypeFromCheckedForm(form.car_type)
             }
 
-            baseAxios().post(`/cust/inquire-car/${id}`,{
+            baseAxios().post(inquire_car(id),{
                     ssn:customerDto.ssn,
                     value: contractDto.value
             })
@@ -64,7 +65,7 @@ export default function FormCar() {
     };
 
     const moveToSignUpPage = () => {
-        navigate("/signup/user",{
+        navigate(nav_signup_user(),{
             state : {
                 customerDto,
                 contractDto : carContractDto,

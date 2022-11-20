@@ -71,11 +71,11 @@ export function getCarTypeFromCheckedForm(form) {
 export function getUrlByInsuranceType(type,id){
     switch (type) {
         case 'HEALTH':
-            return `/cust/register-health/${id}`;
+            return `/contract/register-health/${id}`;
         case 'CAR':
-            return `/cust/register-car/${id}`;
+            return `/contract/register-car/${id}`;
         case 'FIRE':
-            return `/cust/register-fire/${id}`;
+            return `/contract/register-fire/${id}`;
     }
 }
 
