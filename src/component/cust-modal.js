@@ -1,9 +1,8 @@
 import {Button, Modal, Table} from "react-bootstrap";
-import CustTable from "./cust-table";
 import {InsuranceListSample} from "../utils/sample-data/sample";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import baseAxios from "../utils/cust-axios";
+import {baseAxios} from "../utils/cust-axios";
 import {convertValues} from "../utils/convert-values";
 
 

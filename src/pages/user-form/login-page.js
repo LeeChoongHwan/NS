@@ -1,7 +1,6 @@
 import UserForm from "../../component/user-form";
-import {getDataByInsuranceType, getUrlByInsuranceType} from "../../utils/convert-values";
-import baseAxios from "../../utils/cust-axios";
-import {login_user, nav_home, signup_user} from "../../utils/url";
+import {baseAxios} from "../../utils/cust-axios";
+import {login_user, nav_home} from "../../utils/url";
 import {useState} from "react";
 import saveToken from "../../utils/tokens";
 import {useNavigate} from "react-router-dom";

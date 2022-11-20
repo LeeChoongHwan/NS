@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import {Container} from "react-bootstrap";
 import {useLocation, useNavigate} from "react-router-dom";
-import baseAxios from "../../utils/cust-axios";
+import {baseAxios} from "../../utils/cust-axios";
 import PremiumModal from "../../component/premium_modal";
 import {inquire_health, nav_signup_user} from "../../utils/url";
 

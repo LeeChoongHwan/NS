@@ -2,7 +2,7 @@ import CustTable from "../component/cust-table";
 import {Container} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import {InsuranceListSample} from "../utils/sample-data/sample";
-import baseAxios from "../utils/cust-axios";
+import {baseAxios} from "../utils/cust-axios";
 import {insurance_all} from "../utils/url";
 
 

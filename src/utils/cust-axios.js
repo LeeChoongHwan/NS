@@ -2,7 +2,7 @@ import axios from "axios";
 
 const baseUrl = "http://localhost:8080"
 
-export default function baseAxios(){
+export function baseAxios(){
     return  axios.create({
         baseURL: baseUrl,
     });

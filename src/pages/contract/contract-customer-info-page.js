@@ -3,14 +3,15 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import {useLocation, useNavigate} from "react-router-dom";
 import {
-    email_back_pattern, email_front_pattern,
+    email_back_pattern,
+    email_front_pattern,
     phone_first_pattern,
     phone_last_pattern,
     phone_second_pattern,
     ssn_back_pattern,
     ssn_front_pattern
 } from "../../utils/reg-pattern";
-import {Col, Container, InputGroup, Row} from "react-bootstrap";
+import {Container, InputGroup} from "react-bootstrap";
 import {nav_home, nav_signup_type} from "../../utils/url";
 
 export default function FormExample() {

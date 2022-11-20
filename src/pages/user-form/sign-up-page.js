@@ -1,6 +1,6 @@
 import {useLocation, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import baseAxios from "../../utils/cust-axios";
+import {baseAxios} from "../../utils/cust-axios";
 import {getDataByInsuranceType, getUrlByInsuranceType} from "../../utils/convert-values";
 import UserForm from "../../component/user-form";
 import {nav_home, signup_user} from "../../utils/url";
