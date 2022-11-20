@@ -1,11 +1,11 @@
 import {useLocation, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import baseAxios from "../utils/cust-axios";
-import {getDataByInsuranceType, getUrlByInsuranceType} from "../utils/convert-values";
-import UserForm from "../component/user-form";
-import {nav_home, signup_user} from "../utils/url";
+import baseAxios from "../../utils/cust-axios";
+import {getDataByInsuranceType, getUrlByInsuranceType} from "../../utils/convert-values";
+import UserForm from "../../component/user-form";
+import {nav_home, signup_user} from "../../utils/url";
 
-export default function SignUpForm() {
+export default function SignUpPage() {
     const [validated, setValidated] = useState(false);
     const [id, setId] = useState();
     const [type, setType] = useState();

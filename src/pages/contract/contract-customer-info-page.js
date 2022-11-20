@@ -9,9 +9,9 @@ import {
     phone_second_pattern,
     ssn_back_pattern,
     ssn_front_pattern
-} from "../utils/reg-pattern";
+} from "../../utils/reg-pattern";
 import {Col, Container, InputGroup, Row} from "react-bootstrap";
-import {nav_home, nav_signup_type} from "../utils/url";
+import {nav_home, nav_signup_type} from "../../utils/url";
 
 export default function FormExample() {
     const [validated, setValidated] = useState(false);

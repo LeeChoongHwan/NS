@@ -4,13 +4,13 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import {useLocation, useNavigate} from "react-router-dom";
 import {Container} from "react-bootstrap";
-import {getBuildingTypeFromCheckedForm} from "../utils/convert-values";
-import baseAxios from "../utils/cust-axios";
-import PremiumModal from "./premium_modal";
+import {getBuildingTypeFromCheckedForm} from "../../utils/convert-values";
+import baseAxios from "../../utils/cust-axios";
+import PremiumModal from "../../component/premium_modal";
 import axios from "axios";
-import {inquire_fire, nav_signup_user} from "../utils/url";
+import {inquire_fire, nav_signup_user} from "../../utils/url";
 
-export default function FormFire() {
+export default function ContractFireInfoPage() {
     const [validated, setValidated] = useState(false);
     const [id, setId] = useState();
     const [customerDto, setCustomerDto] = useState(Object);
