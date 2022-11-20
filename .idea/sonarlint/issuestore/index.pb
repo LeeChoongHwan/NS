@@ -23,9 +23,6 @@ N
 src/component/premium_modal.js,9\a\9aab1bdc73d7329d09a643910184ee53d892f9a6
 D
 src/utils/global.css,6\f\6f46141a886cb778750a77170e76d88d9b4ba44b
-:
-
-src/App.js,1\e\1e43fa63aecd2127be034b3fb9d4caa172275714
 A
 package-lock.json,f\a\fa288d1472d29beccb489a676f68739ad365fc47
 <

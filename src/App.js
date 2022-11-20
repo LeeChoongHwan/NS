@@ -6,6 +6,7 @@ import FormExample from "./pages/contract/contract-customer-info-page";
 import ContractCarInfoPage from "./pages/contract/contract-car-info-page";
 import ContractHealthInfoPage from "./pages/contract/contract-health-info-page";
 import ContractFireInfoPage from "./pages/contract/contract-fire-info-page";
+import LoginPage from "./pages/user-form/login-page";
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
               <Route path={"/signup/FIRE"} element={<ContractFireInfoPage/>}/>
               <Route path={"/signup/HEALTH"} element={<ContractHealthInfoPage/>}/>
               <Route path={"/signup/user"} element={<SignUpPage/>}/>
+              <Route path={"/login"} element={<LoginPage/>}/>
               <Route path={"/**"} element={<ErrorPage/>}/>
           </Routes>
         </Router>

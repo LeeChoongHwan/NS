@@ -12,8 +12,10 @@ export const inquire_car = (insuranceId) => `/insurance/inquire-car/${insuranceI
 export const inquire_fire = (insuranceId) => `/insurance/inquire-fire/${insuranceId}`
 export const inquire_health = (insuranceId) => `/insurance/inquire-health/${insuranceId}`
 
-// SignUp
+// SignUp & Login
 export const signup_user = (customerId) => `/user/sign-up/${customerId}`
+export const login_user = () => `login`
+
 
 
 
