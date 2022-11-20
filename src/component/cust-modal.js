@@ -6,11 +6,8 @@ import {baseAxios} from "../utils/cust-axios";
 import {convertValues} from "../utils/convert-values";
 
 
-export default function CustModal({_show, _handleShow, _id}) {
+export default function CustModal({_show, _handleShow, _id, _mode}) {
     const [insurance, setInsurance] = useState(Object)
-    // 
-    //  TODO axios를 통해서 정보를 받아와서 값을 채워준다. 보험 이름, 계약 기간, 납입 기간, 보장 항목 [이름, 설명, 금액    ]
-
     useEffect(() => {
         if (_show) {
             baseAxios().get(`/insurance/${_id}`)
@@ -30,7 +27,8 @@ export default function CustModal({_show, _handleShow, _id}) {
         navigate("/signup",{
             state:{
                 id : _id,
-                type : insurance.type
+                type : insurance.type,
+                mode : _mode
             }
         });
     }

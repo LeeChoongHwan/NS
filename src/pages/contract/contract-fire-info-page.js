@@ -66,6 +66,7 @@ export default function ContractFireInfoPage() {
                 contractDto : fireContractDto,
                 id,
                 type,
+                mode : location.state.mode
             },
             replace : true
         })

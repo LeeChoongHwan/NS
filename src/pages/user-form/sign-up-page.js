@@ -1,14 +1,20 @@
 import {useLocation, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {baseAxios} from "../../utils/cust-axios";
-import {getDataByInsuranceType, getUrlByInsuranceType} from "../../utils/convert-values";
+import {baseAxios, tokenAxios} from "../../utils/cust-axios";
+import {
+    getDataByInsuranceType,
+    getContractUrlByInsuranceType,
+    getSalesUrlByInsuranceType
+} from "../../utils/convert-values";
 import UserForm from "../../component/user-form";
 import {nav_home, signup_user} from "../../utils/url";
+import {mode_direct} from "../../utils/global-variable";
 
 export default function SignUpPage() {
     const [validated, setValidated] = useState(false);
     const [id, setId] = useState();
     const [type, setType] = useState();
+    const [mode, setMode] = useState();
     const [customerDto, setCustomerDto] = useState(Object);
     const [contractDto, setContractDto] = useState(Object);
 
@@ -22,6 +28,7 @@ export default function SignUpPage() {
             setId(location.state.id)
             setCustomerDto(location.state.customerDto)
             setContractDto(location.state.contractDto)
+            setMode(location.state.mode)
         }
 
     }, [])
@@ -32,22 +39,43 @@ export default function SignUpPage() {
         if (form.checkValidity() === false) {
             event.stopPropagation();
         } else {
-            const data = getDataByInsuranceType(type, customerDto, contractDto);
-            const url = getUrlByInsuranceType(type, id);
+            const contractData = getDataByInsuranceType(type, customerDto, contractDto);
+            const signupData = {
+                userId: form.loginId.value,
+                password: form.password.value
+            };
 
-            baseAxios().post(`${url}`,
-                data)
-                .then((response) => {
-                    baseAxios().post(signup_user(response.data.customerId),{
-                        userId:form.loginId.value,
-                        password:form.password.value
-                    }).then(() =>{
-                        navigate(nav_home(), {replace: true})
-                    }).catch((error) => {console.error(error)})
+            let axios;
+            // mode에 따라서 axios 다르게 설정해주기.
+            if (mode === mode_direct) {
+                const url = getContractUrlByInsuranceType(type, id);
+                axios = baseAxios().post(`${url}`,
+                    contractData)
+                //     .then((response) => {
+                //         baseAxios().post(signup_user(response.data.customerId), signupData).then(() => {
+                //             navigate(nav_home(), {replace: true})
+                //         }).catch((error) => {
+                //             console.error(error)
+                //         })
+                //     }).catch((error) => {
+                //     console.error(error)
+                // })
+            }else {
+                const url = getSalesUrlByInsuranceType(type,id);
+                axios = tokenAxios().post(`${url}`,
+                    contractData)
+            }
+            axios.then((response) => {
+                baseAxios().post(signup_user(response.data.customerId), signupData).then(() => {
+                    navigate(nav_home(), {replace: true})
                 }).catch((error) => {
+                    console.error(error)
+                })
+            }).catch((error) => {
                 console.error(error)
             })
         }
+
         setValidated(true);
     };
     return (

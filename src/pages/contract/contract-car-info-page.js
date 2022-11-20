@@ -5,7 +5,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import {useLocation, useNavigate} from "react-router-dom";
 import {Container} from "react-bootstrap";
 import {car_no_pattern} from "../../utils/reg-pattern";
-import {convertIndexToCarType, findCheckedIndex, getCarTypeFromCheckedForm} from "../../utils/convert-values";
+import {getCarTypeFromCheckedForm} from "../../utils/convert-values";
 import {baseAxios} from "../../utils/cust-axios";
 import PremiumModal from "../../component/premium_modal";
 import {inquire_car, nav_signup_user} from "../../utils/url";
@@ -71,7 +71,7 @@ export default function ContractCarInfoPage() {
                 contractDto : carContractDto,
                 id,
                 type,
-
+                mode : location.state.mode
             },
             replace : true
         })

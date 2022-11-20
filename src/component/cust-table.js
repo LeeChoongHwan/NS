@@ -3,10 +3,7 @@ import {convertValues} from "../utils/convert-values";
 import CustModal from "./cust-modal";
 
 
-export default function  CustTable({_head, _body,_rowAction, _modalProps}) {
-
-
-
+export default function  CustTable({_head, _body,_rowAction, _modalProps,_mode}) {
 
     return<>
         <Table striped bordered hover >
@@ -30,7 +27,7 @@ export default function  CustTable({_head, _body,_rowAction, _modalProps}) {
                 </tr>
             })}
             {_modalProps == null ? null :
-                <CustModal _show={_modalProps.showModal} _handleShow={_modalProps.setShowModal} _id={_modalProps.insId}
+                <CustModal _mode={_mode} _show={_modalProps.showModal} _handleShow={_modalProps.setShowModal} _id={_modalProps.insId}
                 ></CustModal>}
 
             </tbody>

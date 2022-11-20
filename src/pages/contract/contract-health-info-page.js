@@ -27,7 +27,6 @@ export default function ContractHealthInfoPage() {
             setId(location.state.id);
             setType(location.state.type);
         }
-
     }, [])
 
     const handleSubmit = (event) => {
@@ -78,7 +77,8 @@ export default function ContractHealthInfoPage() {
                 customerDto,
                 contractDto : healthContractDto,
                 id,
-                type
+                type,
+                mode : location.state.mode
             },
             replace : true
         })

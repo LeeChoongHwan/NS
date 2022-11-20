@@ -1,3 +1,5 @@
+import {contract_car, contract_fire, contract_health, sales_car, sales_fire, sales_health} from "./url";
+
 export  function convertValues(obj) {
     if(obj===undefined || obj===null) return [];
   return Object.keys(obj).map(function(key){
@@ -68,14 +70,25 @@ export function getCarTypeFromCheckedForm(form) {
     return convertIndexToCarType(index);
 }
 
-export function getUrlByInsuranceType(type,id){
+export function getContractUrlByInsuranceType(type, id){
     switch (type) {
         case 'HEALTH':
-            return `/contract/register-health/${id}`;
+            return contract_health(id);
         case 'CAR':
-            return `/contract/register-car/${id}`;
+            return contract_car(id);
         case 'FIRE':
-            return `/contract/register-fire/${id}`;
+            return contract_fire(id);
+    }
+}
+
+export function getSalesUrlByInsuranceType(type, id){
+    switch (type) {
+        case 'HEALTH':
+            return sales_health(id);
+        case 'CAR':
+            return sales_car(id);
+        case 'FIRE':
+            return sales_fire(id);
     }
 }
 
