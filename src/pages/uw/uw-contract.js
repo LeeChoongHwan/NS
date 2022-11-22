@@ -1,11 +1,12 @@
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import CustTable from "../../component/cust-table";
 import {uw_contract_header} from "../../utils/table_header";
 import {tokenAxios} from "../../utils/cust-axios";
-import {read_customer_uw_status} from "../../utils/url";
+import {nav_uw, read_customer_uw_status} from "../../utils/url";
 import {convertUwStatus} from "../../utils/convert-values";
 import {ModalMode as ModalStatus} from "../../utils/global-variable";
+import {Button} from "react-bootstrap";
 
 export default function UwContract(){
     const [body, setBody] = useState([])
@@ -13,6 +14,7 @@ export default function UwContract(){
     const [showModal, setShowModal] = useState(false)
     const [customerId, setCustomerId] = useState();
     const [refresh, setRefresh] = useState(false);
+    const navigate = useNavigate();
 
     const location = useLocation();
     const modalState = {
@@ -29,11 +31,8 @@ export default function UwContract(){
             setType(location.state.insuranceType)
             tokenAxios().get(read_customer_uw_status(location.state.insuranceType))
                 .then((res) =>{
-                    // convertUwStatus
-
                     res.data.map((data) => {
                             data.conditionOfUw = convertUwStatus(data.conditionOfUw)
-                            console.log(data.conditionOfUw)
                     }
                     )
                     setBody(res.data);
@@ -52,8 +51,7 @@ export default function UwContract(){
     return (
         <>
             <CustTable _head={uw_contract_header}  _body={body} _modalProps={modalState} _rowAction={createModal}/>
-
-
+            <Button onClick={() => navigate(nav_uw())}>뒤로가기</Button>
         </>
     )
 }
