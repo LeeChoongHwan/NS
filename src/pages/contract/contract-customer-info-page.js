@@ -3,19 +3,21 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import {useLocation, useNavigate} from "react-router-dom";
 import {
-    email_back_pattern, email_front_pattern,
+    email_back_pattern,
+    email_front_pattern,
     phone_first_pattern,
     phone_last_pattern,
     phone_second_pattern,
     ssn_back_pattern,
     ssn_front_pattern
 } from "../../utils/reg-pattern";
-import {Col, Container, InputGroup, Row} from "react-bootstrap";
+import {Container, InputGroup} from "react-bootstrap";
 import {nav_home, nav_signup_type} from "../../utils/url";
 
-export default function FormExample() {
+export default function ContracctCustomerInfo() {
     const [validated, setValidated] = useState(false);
     const [insuranceInfo, setInsuranceInfo] = useState(Object);
+    const [mode, setMode] = useState();
     const navigate = useNavigate();
     const location = useLocation()
 
@@ -25,6 +27,7 @@ export default function FormExample() {
                  id : location.state.id,
                  type : location.state.type
              })
+        setMode(location.state.mode);
     }, [])
 
     const handleSubmit = (event) => {
@@ -41,13 +44,13 @@ export default function FormExample() {
             job: form.job.value,
             address: form.address.value
         }
-        console.log(customerDto)
         setValidated(true);
         navigate(nav_signup_type(insuranceInfo.type), {
             state: {
                 customerDto,
                 id : insuranceInfo.id,
-                type : insuranceInfo.type
+                type : insuranceInfo.type,
+                mode
             },
             replace: true
         })

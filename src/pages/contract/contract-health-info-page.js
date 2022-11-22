@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import {Container} from "react-bootstrap";
 import {useLocation, useNavigate} from "react-router-dom";
-import baseAxios from "../../utils/cust-axios";
+import {baseAxios} from "../../utils/cust-axios";
 import PremiumModal from "../../component/premium_modal";
 import {inquire_health, nav_signup_user} from "../../utils/url";
 
@@ -27,7 +27,6 @@ export default function ContractHealthInfoPage() {
             setId(location.state.id);
             setType(location.state.type);
         }
-
     }, [])
 
     const handleSubmit = (event) => {
@@ -78,7 +77,8 @@ export default function ContractHealthInfoPage() {
                 customerDto,
                 contractDto : healthContractDto,
                 id,
-                type
+                type,
+                mode : location.state.mode
             },
             replace : true
         })

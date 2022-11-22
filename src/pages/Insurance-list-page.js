@@ -1,11 +1,11 @@
 import CustTable from "../component/cust-table";
 import {Container} from "react-bootstrap";
-import CustModal from "../component/cust-modal";
 import {useEffect, useState} from "react";
 import {InsuranceListSample} from "../utils/sample-data/sample";
-import baseAxios from "../utils/cust-axios";
-import {convertInsuranceType} from "../utils/convert-values";
+import {baseAxios} from "../utils/cust-axios";
 import {insurance_all} from "../utils/url";
+import {useLocation} from "react-router-dom";
+import {ModalMode} from "../utils/global-variable";
 
 
 export default function InsuranceList() {
@@ -13,13 +13,16 @@ export default function InsuranceList() {
     const [showModal, setShowModal] = useState(false)
     const [insId, setInsId] = useState("");
     const [list, setList] = useState([]);
+    const [mode, setMode] = useState();
+    const location = useLocation();
 
 
     const listProps = {
         showModal,
         setShowModal,
         insId,
-
+        mode,
+        modalStatus : ModalMode.GUARANTEE
     }
     useEffect(() => {
 
@@ -30,6 +33,10 @@ export default function InsuranceList() {
             .catch(function (error) {
                 console.log(error);
             });
+
+        if(location.state.mode!== null)
+            setMode(location.state.mode);
+
     }, [])
 const createModal = (event) => {
     setShowModal(true)
@@ -40,7 +47,7 @@ const createModal = (event) => {
 return <>
     <Container>
         <CustTable _head={InsuranceListSample().head} _body={list} _rowAction={createModal}
-                   _modalProps={listProps}/>
+                    _modalProps={listProps}/>
     </Container>
 </>
 }

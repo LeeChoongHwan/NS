@@ -5,9 +5,8 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import {useLocation, useNavigate} from "react-router-dom";
 import {Container} from "react-bootstrap";
 import {getBuildingTypeFromCheckedForm} from "../../utils/convert-values";
-import baseAxios from "../../utils/cust-axios";
+import {baseAxios} from "../../utils/cust-axios";
 import PremiumModal from "../../component/premium_modal";
-import axios from "axios";
 import {inquire_fire, nav_signup_user} from "../../utils/url";
 
 export default function ContractFireInfoPage() {
@@ -67,6 +66,7 @@ export default function ContractFireInfoPage() {
                 contractDto : fireContractDto,
                 id,
                 type,
+                mode : location.state.mode
             },
             replace : true
         })

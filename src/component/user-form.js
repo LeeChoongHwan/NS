@@ -1,6 +1,6 @@
 import {Form} from "react-bootstrap";
 
-export default function UserForm({validated, handleSubmit}){
+export default function UserForm({validated, handleSubmit, button_message}){
     return (
         <div className={"flex_box flex_box_center"}>
             <div className="form-signin">
@@ -26,7 +26,7 @@ export default function UserForm({validated, handleSubmit}){
                         <Form.Control.Feedback>사용가능합니다</Form.Control.Feedback>
                         <Form.Control.Feedback type={"invalid"}>비밀번호를 입력해 주세요</Form.Control.Feedback>
                     </Form.Group>
-                    <button type="submit" className="w-100 btn btn-primary">가입 하기</button>
+                    <button type="submit" className="w-100 btn btn-primary">{button_message}</button>
                 </Form>
             </div>
         </div>
