@@ -8,7 +8,9 @@ import ContractHealthInfoPage from "./pages/contract/contract-health-info-page";
 import ContractFireInfoPage from "./pages/contract/contract-fire-info-page";
 import LoginPage from "./pages/user-form/login-page";
 import Base from "./pages/base";
-import {nav_insurance} from "./utils/url";
+import {nav_home, nav_insurance, nav_login, nav_signup_user, nav_uw, nav_uw_contract} from "./utils/url";
+import UwPage from "./pages/uw/uw-page";
+import UwContract from "./pages/uw/uw-contract";
 
 
 function App() {
@@ -17,14 +19,16 @@ function App() {
         <Router>
           <Routes>
               {/*TODO path 변수로 변경해주기*/}
-              <Route path="/" element={<Base />} />
+              <Route path={nav_home()} element={<Base />} />
               <Route path={nav_insurance()} element={<InsuranceList/>}/>
               <Route path={"/signup"} element={<ContractCustomerInfo/>}/>
               <Route path={"/signup/CAR"} element={<ContractCarInfoPage/>}/>
               <Route path={"/signup/FIRE"} element={<ContractFireInfoPage/>}/>
               <Route path={"/signup/HEALTH"} element={<ContractHealthInfoPage/>}/>
-              <Route path={"/signup/user"} element={<SignUpPage/>}/>
-              <Route path={"/login"} element={<LoginPage/>}/>
+              <Route path={nav_signup_user()} element={<SignUpPage/>}/>
+              <Route path={nav_uw()} element={<UwPage/>}/>
+              <Route path={nav_uw_contract()} element={<UwContract/>}/>
+              <Route path={nav_login()} element={<LoginPage/>}/>
               <Route path={"/**"} element={<ErrorPage/>}/>
           </Routes>
         </Router>

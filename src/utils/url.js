@@ -27,6 +27,10 @@ export const sales_fire = (insuranceId) => `/emp/sales/fire/${insuranceId}`
 export const signup_user = (customerId) => `/user/sign-up/${customerId}`
 export const login_user = () => `login`
 
+// UW
+export const read_customer_uw_status = (insuranceType) => `/emp/uw/${insuranceType}`
+export const read_customer_contract_info = (insuranceType, contractId) => `/emp/uw/${insuranceType}/${contractId}`
+export const apply_uw_result = (contractId) => `/emp/uw/${contractId}`
 
 
 // NAVIGATION
@@ -36,3 +40,5 @@ export const nav_contract_customer = () => `/signup/customer`
 export const nav_signup_user = () => "/signup/user";
 export const nav_signup_type = (insuranceType) => `/signup/${insuranceType}`
 export const nav_login = () => `/login`
+export const nav_uw = () => `/uw`
+export const nav_uw_contract = () => `/uw/contract`

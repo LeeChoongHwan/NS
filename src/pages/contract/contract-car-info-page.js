@@ -132,7 +132,7 @@ export default function ContractCarInfoPage() {
                     <Form.Label>차종</Form.Label>
                     </div>
                     <Form.Check required inline  label="경형"  name="car_type" type='radio'/>
-                    <Form.Check required inline label="중형" name="car_type" type='radio'/>
+                    <Form.Check required inline label="소형" name="car_type" type='radio'/>
                     <Form.Check required inline label="준중형" name="car_type" type='radio'/>
                     <Form.Check required inline label="중형" name="car_type" type='radio'/>
                     <Form.Check required inline label="준대형" name="car_type" type='radio'/>

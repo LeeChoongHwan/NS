@@ -6,7 +6,7 @@ import {baseAxios} from "../utils/cust-axios";
 import {convertValues} from "../utils/convert-values";
 
 
-export default function CustModal({_show, _handleShow, _id, _mode}) {
+export default function GuaranteeModal({_show, _handleShow, _id, _mode}) {
     const [insurance, setInsurance] = useState(Object)
     useEffect(() => {
         if (_show) {

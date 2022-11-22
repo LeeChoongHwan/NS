@@ -5,6 +5,7 @@ import {InsuranceListSample} from "../utils/sample-data/sample";
 import {baseAxios} from "../utils/cust-axios";
 import {insurance_all} from "../utils/url";
 import {useLocation} from "react-router-dom";
+import {ModalMode} from "../utils/global-variable";
 
 
 export default function InsuranceList() {
@@ -20,7 +21,8 @@ export default function InsuranceList() {
         showModal,
         setShowModal,
         insId,
-
+        mode,
+        modalStatus : ModalMode.GUARANTEE
     }
     useEffect(() => {
 
@@ -45,7 +47,7 @@ const createModal = (event) => {
 return <>
     <Container>
         <CustTable _head={InsuranceListSample().head} _body={list} _rowAction={createModal}
-                   _mode={mode} _modalProps={listProps}/>
+                    _modalProps={listProps}/>
     </Container>
 </>
 }
