@@ -1,15 +1,21 @@
 import UserForm from "../../component/user-form";
 import {baseAxios} from "../../utils/cust-axios";
 import {login_user, nav_home} from "../../utils/url";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import saveToken from "../../utils/tokens";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 export default function LoginPage(){
 
     const navigate = useNavigate();
-
+    const location = useLocation();
     const [validated, setValidated] = useState(false);
+    const [nextPage,setNextPage] = useState("")
+    useEffect(() => {
+        if(location.state.nextPage !== undefined)
+            setNextPage(location.state.nextPage)
+
+    })
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
@@ -22,11 +28,12 @@ export default function LoginPage(){
                 password:form.password.value
             }).then(response => {
                 saveToken(response.headers["access-token"])
-                navigate(nav_home(),{
+                const url = nextPage !== "" ? nextPage : nav_home()
+                navigate(url,{
                     replace : true
                 })
             })
-            setValidated(true);
+            // setValidated(true);
         }
     };
     return (
