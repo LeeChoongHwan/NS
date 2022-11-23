@@ -5,9 +5,6 @@ import CustModal from "./cust-modal";
 
 export default function  CustTable({_head, _body,_rowAction, _modalProps}) {
 
-
-
-
     return<>
         <Table striped bordered hover >
             <thead>
