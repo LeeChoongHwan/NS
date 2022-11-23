@@ -35,6 +35,9 @@ export const apply_uw_result = (contractId) => `/emp/uw/${contractId}`
 
 // NAVIGATION
 export const nav_home = () => `/`
+export const nav_customer_home = () => `/customer`
+export const nav_customer_non_member_home = () => `/customer/nonmember`
+export const nav_employee_home = () => `/employee`
 export const nav_insurance = () => `/insurance/list`
 export const nav_contract_customer = () => `/signup/customer`
 export const nav_signup_user = () => "/signup/user";
