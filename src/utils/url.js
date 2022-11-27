@@ -32,11 +32,20 @@ export const read_customer_uw_status = (insuranceType) => `/emp/uw/${insuranceTy
 export const read_customer_contract_info = (insuranceType, contractId) => `/emp/uw/${insuranceType}/${contractId}`
 export const apply_uw_result = (contractId) => `/emp/uw/${contractId}`
 
+// Customer-Payment
+export const read_contract_paying_info = () => `/customer/contract`
+export const pay_premium = (contractId) => `/customer/pay/${contractId}`
+export const customer_payment = () => `/customer/payment`
+
 
 // NAVIGATION
 export const nav_home = () => `/`
 export const nav_customer_home = () => `/customer`
 export const nav_customer_non_member_home = () => `/customer/nonmember`
+export const nav_customer_member_home = () => `/customer/member`
+export const nav_paying_page = () => `/customer/paying`
+
+
 export const nav_employee_home = () => `/employee`
 export const nav_insurance = () => `/insurance/list`
 export const nav_contract_customer = () => `/signup/customer`
