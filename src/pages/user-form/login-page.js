@@ -32,6 +32,10 @@ export default function LoginPage(){
                 navigate(url,{
                     replace : true
                 })
+            }).catch(err => {
+                if(err.response.status===404){
+                    alert("아이디 혹은 비밀번호를 다시 확인해주세요")
+                }
             })
             // setValidated(true);
         }
