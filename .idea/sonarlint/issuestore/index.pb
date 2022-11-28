@@ -67,11 +67,6 @@ a
 1src/pages/contract/contract-customer-info-page.js,9\5\955bdb71718ee1f72cad4f598b4eabf9fd548803
 C
 src/utils/style.css,3\d\3dce6edd893869f2a956bb01638c5f3dc9f55404
-:
-
-src/App.js,1\e\1e43fa63aecd2127be034b3fb9d4caa172275714
-[
-+src/pages/customer/payment/contract-list.js,c\9\c946b7a68e7e49b75467f3927f9ad9f8a7b01880
 K
 src/component/cust-table.js,a\5\a5ee9bd01afffa218ae368303d5b501567241edd
 X
@@ -82,3 +77,13 @@ W
 'src/component/pay/payment-list-modal.js,e\5\e576345fe557be9e6cab8f3a0b13cf79517250cc
 I
 src/utils/table_header.js,e\1\e11f28119a1f8c9067d6dafc3188eb82b2946b57
+d
+4src/component/form-group/custom-form-number-group.js,b\6\b6c8ad21ab1f9356cf1c0c0c6ee049467b76ea0e
+b
+2src/component/form-group/custom-form-text-group.js,c\1\c10f8e253d84fa4023857bae075d67933d554531
+D
+src/utils/global.css,6\f\6f46141a886cb778750a77170e76d88d9b4ba44b
+C
+src/utils/tokens.js,1\a\1a3b5afcc9dad7858fb9b1c9b95b0e04b9feaa2d
+S
+#.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0

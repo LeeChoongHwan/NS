@@ -1,11 +1,15 @@
 import {useEffect, useState} from "react";
 import {tokenAxios} from "../../../utils/cust-axios";
-import {read_contract_paying_info} from "../../../utils/url";
+import {nav_customer_member_home, read_contract_paying_info} from "../../../utils/url";
 import CustTable from "../../../component/cust-table";
 import {customer_contract_paying_header} from "../../../utils/table_header";
 import {ModalMode as ModalStatus} from "../../../utils/global-variable";
+import {useNavigate} from "react-router-dom";
+import {Button} from "react-bootstrap";
 
 export default function ContractList(){
+
+    const  navigate = useNavigate();
 
     const [contracts,setContracts] = useState([])
     const [showModal, setShowModal] = useState(false)
@@ -15,6 +19,10 @@ export default function ContractList(){
         showModal,
         setShowModal,
         contractId,
+    }
+
+    const moveToMemberPage = () => {
+        navigate(nav_customer_member_home(),{replace : true});
     }
 
 
@@ -35,6 +43,7 @@ export default function ContractList(){
     return (
         <>
             <CustTable _head={customer_contract_paying_header} _body={contracts} _rowAction={createModal} _modalProps={modalState}></CustTable>
+            <Button onClick={moveToMemberPage}>뒤로가기</Button>
         </>
 
     )
