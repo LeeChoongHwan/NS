@@ -4,6 +4,7 @@ import {login_user, nav_home} from "../../utils/url";
 import {useEffect, useState} from "react";
 import saveToken from "../../utils/tokens";
 import {useLocation, useNavigate} from "react-router-dom";
+import {globalExceptionHandler, handleError} from "../../utils/exception/global-exception-handler";
 
 export default function LoginPage(){
 
@@ -33,9 +34,8 @@ export default function LoginPage(){
                     replace : true
                 })
             }).catch(err => {
-                if(err.response.status===404){
-                    alert("아이디 혹은 비밀번호를 다시 확인해주세요")
-                }
+                console.log(err)
+                handleError(err)
             })
             // setValidated(true);
         }

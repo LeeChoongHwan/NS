@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {baseAxios} from "../utils/cust-axios";
 import {convertValues} from "../utils/convert-values";
+import {handleError} from "../utils/exception/global-exception-handler";
 
 
 export default function GuaranteeModal({_show, _handleShow, _id, _mode}) {
@@ -14,7 +15,7 @@ export default function GuaranteeModal({_show, _handleShow, _id, _mode}) {
                 .then(response => {
                     setInsurance(response.data)
                     console.log(response.data)
-                })
+                }).catch(error =>  handleError(error))
         }
     },[_id])
 

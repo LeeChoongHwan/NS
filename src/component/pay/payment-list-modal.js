@@ -4,6 +4,7 @@ import {customer_payment} from "../../utils/url";
 import {Button, Modal} from "react-bootstrap";
 import CustTable from "../cust-table";
 import {customer_payments_header} from "../../utils/table_header";
+import {handleError} from "../../utils/exception/global-exception-handler";
 
 export default function PaymentListModal({_show, _setShow , _payments, _contractId}){
 
@@ -18,7 +19,7 @@ export default function PaymentListModal({_show, _setShow , _payments, _contract
                 alert("결제 수단이 등록되었습니다.")
                 handleClose();
             })
-            .catch(console.error)
+            .catch(error =>  handleError(error))
     }
 
     const handleClose = () => {

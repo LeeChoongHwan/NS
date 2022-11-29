@@ -9,6 +9,7 @@ import {
 import UserForm from "../../component/user-form";
 import {nav_home, signup_user} from "../../utils/url";
 import {mode_direct} from "../../utils/global-variable";
+import {handleError} from "../../utils/exception/global-exception-handler";
 
 export default function SignUpPage() {
     const [validated, setValidated] = useState(false);
@@ -51,15 +52,6 @@ export default function SignUpPage() {
                 const url = getContractUrlByInsuranceType(type, id);
                 axios = baseAxios().post(`${url}`,
                     contractData)
-                //     .then((response) => {
-                //         baseAxios().post(signup_user(response.data.customerId), signupData).then(() => {
-                //             navigate(nav_home(), {replace: true})
-                //         }).catch((error) => {
-                //             console.error(error)
-                //         })
-                //     }).catch((error) => {
-                //     console.error(error)
-                // })
             }else {
                 const url = getSalesUrlByInsuranceType(type,id);
                 axios = tokenAxios().post(`${url}`,
@@ -69,10 +61,10 @@ export default function SignUpPage() {
                 baseAxios().post(signup_user(response.data.customerId), signupData).then(() => {
                     navigate(nav_home(), {replace: true})
                 }).catch((error) => {
-                    console.error(error)
+                    handleError(error)
                 })
             }).catch((error) => {
-                console.error(error)
+                handleError(error)
             })
         }
 
