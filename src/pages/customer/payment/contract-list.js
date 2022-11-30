@@ -6,6 +6,7 @@ import {customer_contract_paying_header} from "../../../utils/table_header";
 import {ModalMode as ModalStatus} from "../../../utils/global-variable";
 import {useNavigate} from "react-router-dom";
 import {Button} from "react-bootstrap";
+import {handleError} from "../../../utils/exception/global-exception-handler";
 
 export default function ContractList(){
 
@@ -24,15 +25,13 @@ export default function ContractList(){
     const moveToMemberPage = () => {
         navigate(nav_customer_member_home(),{replace : true});
     }
-
-
     useEffect(() => {
         tokenAxios().get(read_contract_paying_info())
             .then((res) => {
                 setContracts(res.data)
             })
             .catch((err) => {
-                console.log(err)
+                handleError(err)
             })
     },[])
 

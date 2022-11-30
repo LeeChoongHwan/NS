@@ -6,6 +6,7 @@ import {baseAxios} from "../utils/cust-axios";
 import {insurance_all, nav_customer_non_member_home, nav_employee_home} from "../utils/url";
 import {useLocation, useNavigate} from "react-router-dom";
 import {ModalMode, mode_direct} from "../utils/global-variable";
+import {globalExceptionHandler, handleError} from "../utils/exception/global-exception-handler";
 
 
 export default function InsuranceList() {
@@ -31,8 +32,8 @@ export default function InsuranceList() {
             .then(function (response) {
                 setList(response.data);
             })
-            .catch(function (error) {
-                console.log(error);
+            .catch( (error)=> {
+                handleError(error);
             });
 
         if (location.state.mode !== null)

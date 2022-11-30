@@ -4,8 +4,9 @@ import {pay_premium, customer_payment} from "../../utils/url";
 import {useState} from "react";
 import PaymentListModal from "./payment-list-modal";
 import PaymentAddFormModal from "./payment-add-form-modal";
+import {handleError} from "../../utils/exception/global-exception-handler";
 
-export default function PayModal({_show, _setShow ,_contractId}) {
+export default function PayModal({_show, _setShow, _contractId}) {
 
     const [payments, setPayments] = useState([]);
     const [showList, setShowList] = useState(false);
@@ -16,35 +17,33 @@ export default function PayModal({_show, _setShow ,_contractId}) {
 
     const payPremium = () => {
         tokenAxios().post(pay_premium(_contractId))
-            .then(()=>{
+            .then(() => {
                 alert("결제가 완료되었습니다.")
             }).catch(err => {
-            alert(err.response.data.errorMessage)
-            switch(err.response.data.errorName){
+            handleError(err)
+            switch (err.response.data.errorName) {
                 case  'PAYMENT_NOT_REGISTERED' :
-                    alert("[알림] 해당 계약에 대해 결제 수단 정보가 없습니다. 설정해주세요.")
                     registerPayment()
                     break;
 
             }
         })
     }
-    const registerPayment = () =>{
+    const registerPayment = () => {
         tokenAxios().get(customer_payment())
             .then((response) => {
                 setPayments(response.data)
                 setShowList(true)
             }).catch((err) => {
+            handleError(err)
             if (err.response.data.errorName === 'PAYMENT_LIST_EMPTY') {
-                alert(err.response.data.errorMessage + "\n결제수단 등록 창을 띄웁니다.");
                 addPayment();
             }
         })
 
     }
 
-    const addPayment = () =>{
-        // alert("응 추가해")
+    const addPayment = () => {
         setShowAddFormat(true);
     }
 

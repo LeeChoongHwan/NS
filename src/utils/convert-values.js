@@ -1,5 +1,5 @@
 import {contract_car, contract_fire, contract_health, sales_car, sales_fire, sales_health} from "./url";
-import {BuildingType, CarType} from "./global-variable";
+import {AccidentType, BuildingType, CarType} from "./global-variable";
 
 export function convertValues(obj) {
     if (obj === undefined || obj === null) return [];
@@ -169,4 +169,26 @@ export function convertCarTypeToKorean(carType) {
 
 export function convertBoolean(boolean){
     return boolean ? "예" : "아니오";
+}
+
+export function convertLocalDateTime(localDateTime){
+
+    if(localDateTime===undefined)
+        return ;
+
+   return localDateTime.replace('-','년').replace('-','월').replace('T','일 ').replace(':','시').replace(':','분').slice(0,18);
+}
+
+export function convertAccidentReportHeader(accidentType){
+    switch (accidentType) {
+        case AccidentType.CAR_ACCIDENT:
+            return "차량 사고 접수"
+        case AccidentType.CAR_BREAKDOWN:
+            return "차량 고장 접수"
+        case AccidentType.FIRE_ACCIDENT:
+            return "화재 사고 접수";
+        case AccidentType.INJURY_ACCIDENT:
+            return "상해 사고 접수"
+    }
+
 }

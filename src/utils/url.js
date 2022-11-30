@@ -37,6 +37,9 @@ export const read_contract_paying_info = () => `/customer/contract`
 export const pay_premium = (contractId) => `/customer/pay/${contractId}`
 export const customer_payment = () => `/customer/payment`
 
+// Customer-Accident-Report
+export const report_accident = (accidentType) => `/acc/${accidentType}`
+
 
 // NAVIGATION
 export const nav_home = () => `/`
@@ -44,6 +47,11 @@ export const nav_customer_home = () => `/customer`
 export const nav_customer_non_member_home = () => `/customer/nonmember`
 export const nav_customer_member_home = () => `/customer/member`
 export const nav_paying_page = () => `/customer/paying`
+
+// accident
+export const nav_accident_report_page = () => `/accident/report`
+export const nav_accident_report_form_page = () => `/accident/report/form`
+export const nav_accident_report_result_page = () => `/accident/report/result`
 
 
 export const nav_employee_home = () => `/employee`

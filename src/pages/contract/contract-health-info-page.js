@@ -8,6 +8,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {baseAxios} from "../../utils/cust-axios";
 import PremiumModal from "../../component/premium_modal";
 import {inquire_health, nav_signup_user} from "../../utils/url";
+import {handleError} from "../../utils/exception/global-exception-handler";
 
 export default function ContractHealthInfoPage() {
     const [validated, setValidated] = useState(false);
@@ -66,7 +67,7 @@ export default function ContractHealthInfoPage() {
                     setPremiumModalShow(true);
                     contractInfo.premium = response.data.premium;
                     setHealthContractDto(contractInfo);
-                }).catch(err => console.error(err));
+                }).catch(err =>  handleError(err));
         }
         setValidated(true);
     };

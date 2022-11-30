@@ -7,6 +7,7 @@ import UwCustomerInfo from "./UW/uw-customer-info";
 import UwInsuranceInfo from "./UW/uw-insurance-info";
 import UwContractInfo from "./UW/uw-contract-info";
 import {useNavigate} from "react-router-dom";
+import {handleError} from "../utils/exception/global-exception-handler";
 
 export default function UwModal({_show, _handleShow, _contractId, _type, _setRefresh}) {
     const navigate = useNavigate();
@@ -36,7 +37,7 @@ export default function UwModal({_show, _handleShow, _contractId, _type, _setRef
                             break;
                     }
                     setInsuranceInfo(res.data.insuranceDto);
-                })
+                }).catch(error =>  handleError(error))
         }
 
     }, [_show])

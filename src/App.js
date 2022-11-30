@@ -9,6 +9,8 @@ import ContractFireInfoPage from "./pages/contract/contract-fire-info-page";
 import LoginPage from "./pages/user-form/login-page";
 import Base from "./pages/base";
 import {
+    nav_accident_report_form_page,
+    nav_accident_report_page, nav_accident_report_result_page,
     nav_customer_home, nav_customer_member_home, nav_customer_non_member_home, nav_employee_home,
     nav_home,
     nav_insurance,
@@ -24,6 +26,9 @@ import CustomerHome from "./pages/home/customer/customer-home";
 import NonMemberHome from "./pages/home/customer/non-member-home";
 import MemberHome from "./pages/home/customer/member-home";
 import ContractList from "./pages/customer/payment/contract-list";
+import AccidentReportPage from "./pages/accident/accident-report-page";
+import AccidentReportFormPage from "./pages/accident/accident-report-form-page";
+import AccidentReportResultPage from "./pages/accident/accident-report-result-page";
 
 
 function App() {
@@ -39,6 +44,9 @@ function App() {
               <Route path={nav_customer_member_home()} element={<MemberHome />} />
               <Route path={nav_paying_page()} element={<ContractList />} />
               <Route path={nav_insurance()} element={<InsuranceList/>}/>
+              <Route path={nav_accident_report_page()} element={<AccidentReportPage/>}/>
+              <Route path={nav_accident_report_form_page()} element={<AccidentReportFormPage/>}/>
+              <Route path={nav_accident_report_result_page()} element={<AccidentReportResultPage/>}/>
               <Route path={"/signup"} element={<ContractCustomerInfo/>}/>
               <Route path={"/signup/CAR"} element={<ContractCarInfoPage/>}/>
               <Route path={"/signup/FIRE"} element={<ContractFireInfoPage/>}/>
