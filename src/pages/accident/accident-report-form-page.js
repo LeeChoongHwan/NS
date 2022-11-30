@@ -22,6 +22,7 @@ export default function AccidentReportFormPage() {
     useEffect(() => {
         if (location.state.type !== undefined) {
             setAccidentType(location.state.type)
+            dateValidator()
 
         }
 
@@ -30,6 +31,19 @@ export default function AccidentReportFormPage() {
     const handleSubmit = (event) => {
         const form = event.currentTarget;
         event.preventDefault();
+
+        const inputDate = `${form.date.value} ${form.time.value}:00`
+        const now = new Date();
+        const input = new Date(inputDate)
+        if (now < input) {
+            alert("현재 시간보다 미래의 시간을 사고 일시로 선택할 수 없습니다.");
+            form.date.value = ""
+            form.time.value = ""
+            setValidated(true);
+            return;
+        }
+
+
         if (form.checkValidity() === false) {
             event.stopPropagation();
         } else {
@@ -108,6 +122,19 @@ export default function AccidentReportFormPage() {
         navigate(nav_customer_member_home(), {replace : true});
     }
 
+
+
+    const dateValidator = () => {
+        let now_utc = Date.now() // 지금 날짜를 밀리초로
+// getTimezoneOffset()은 현재 시간과의 차이를 분 단위로 반환
+        let timeOff = new Date().getTimezoneOffset()*60000; // 분단위를 밀리초로 변환
+// new Date(now_utc-timeOff).toISOString()은 '2022-05-11T18:09:38.134Z'를 반환
+        const date = new Date(now_utc-timeOff).toISOString();
+        const strings = date.split("T");
+        let today = strings[0];
+        document.getElementById("Date").setAttribute("max", today);
+    }
+
     return (
         <>
             <Container>
@@ -119,17 +146,17 @@ export default function AccidentReportFormPage() {
                 <Form.Label>사고 일시</Form.Label>
                 <Row xs={2} sm={2}>
                     <Form.Group>
-                        <Form.Control name={"date"} type={"date"} required/>
+                        <Form.Control id={"Date"} name={"date"} type={"date"} required />
                         <Form.Control.Feedback>사용 가능합니다!</Form.Control.Feedback>
                         <Form.Control.Feedback type="invalid">
-                            정확한 날짜를 입력해주세요
+                            사고 일시를 입력해주세요
                         </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group>
                         <Form.Control name={"time"} type={"time"} required/>
                         <Form.Control.Feedback>사용 가능합니다!</Form.Control.Feedback>
                         <Form.Control.Feedback type="invalid">
-                            정확한 날짜를 입력해주세요
+                            사고 일시를 입력해주세요
                         </Form.Control.Feedback>
                     </Form.Group>
                 </Row>
