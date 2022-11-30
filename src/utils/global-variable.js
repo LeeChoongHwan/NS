@@ -67,3 +67,12 @@ export const BankTypeErrorMessage = {
     SAEMAUL: "9***-********-* 형태로 입력해주세요(*은 숫자입니다)"
 
 }
+
+export const AccidentType = {
+    CAR_ACCIDENT : "CAR-ACCIDENT",
+    CAR_BREAKDOWN : "CAR-BREAKDOWN",
+    INJURY_ACCIDENT :   "INJURY-ACCIDENT",
+    FIRE_ACCIDENT : "FIRE-ACCIDENT"
+}
+
+export const RequiredErrorMessage = "항목을 입력해 주세요";
