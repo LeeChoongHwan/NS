@@ -7,15 +7,16 @@ import {card_pattern} from "../../../utils/reg-pattern";
 import CustomFormNumberGroup from "../../form-group/custom-form-number-group";
 import {tokenAxios} from "../../../utils/cust-axios";
 import Row from "react-bootstrap/Row";
+import {handleError} from "../../../utils/exception/global-exception-handler";
 
 export default function CardSelect({_show, _setShow, _handleClose}) {
 
     const [cardType, setCardType] = useState()
     const [validated, setValidated] = useState(false);
-    const [cardNo, setCardNo]= useState("")
-    const [cvcNo,setCvcNo] = useState();
-    const [month,setMonth] = useState();
-    const [year,setYear] = useState();
+    const [cardNo, setCardNo] = useState("")
+    const [cvcNo, setCvcNo] = useState();
+    const [month, setMonth] = useState();
+    const [year, setYear] = useState();
 
 
     const changeState = (event) => {
@@ -24,15 +25,16 @@ export default function CardSelect({_show, _setShow, _handleClose}) {
     }
 
     useEffect(() => {
-        if(_show){
+        if (_show) {
             document.querySelector(".form-card").style.display = "block"
-        }else
+            document.querySelector(".form-area-card").style.display = "block"
+        } else
             document.querySelector(".form-card").style.display = "none"
 
-    },[_show])
+    }, [_show])
 
 
-    const clearInputValue = () =>{
+    const clearInputValue = () => {
         setCardNo("")
         setCvcNo("")
         setMonth("")
@@ -55,9 +57,8 @@ export default function CardSelect({_show, _setShow, _handleClose}) {
                 expiryDate: expiryDate
             }).then((response) => {
                 alert("카드가 등록되었습니다.");
-                _setShow(false);
                 clearInputValue()
-            }).catch(console.error)
+            }).catch(err => handleError(err))
         }
         setValidated(true);
     };
@@ -85,16 +86,18 @@ export default function CardSelect({_show, _setShow, _handleClose}) {
                 <Form noValidate validated={validated} onSubmit={handleSubmit} className={"form-area-card"}>
                     <CustomFormTextGroup _name={"카드 번호"} _pattern={card_pattern}
                                          _errorMessage={"****-****-****-**** 형식에 맞춰서 입력해주세요 (4자리 숫자)"}
-                    _value={cardNo} _setValue={setCardNo}/>
+                                         _value={cardNo} _setValue={setCardNo}/>
                     <CustomFormNumberGroup _name={"CVC 번호"} _min={100} _max={999}
-                    _value={cvcNo} _setValue={setCvcNo}/>
-                    <Row xs={2} sm ={2}>
-                    <CustomFormNumberGroup _name={"카드 만료 월"} _min={1} _max={12} _value={month} _setValue={setMonth}/>
-                    <CustomFormNumberGroup _name={"카드만료 연도"} _min={2022} _max={2032} _value={year} _setValue={setYear}/>
+                                           _value={cvcNo} _setValue={setCvcNo}/>
+                    <Row xs={2} sm={2}>
+                        <CustomFormNumberGroup _name={"카드 만료 월"} _min={1} _max={12} _value={month}
+                                               _setValue={setMonth}/>
+                        <CustomFormNumberGroup _name={"카드만료 연도"} _min={2022} _max={2032} _value={year}
+                                               _setValue={setYear}/>
                     </Row>
                     <Row xs={2} className={"mt-3"}>
-                    <Button type={"submit"}>등록</Button>
-                    <Button onClick={_handleClose} variant={"secondary"}>취소</Button>
+                        <Button type={"submit"}>등록</Button>
+                        <Button onClick={_handleClose} variant={"secondary"}>취소</Button>
                     </Row>
                 </Form>
             </div>

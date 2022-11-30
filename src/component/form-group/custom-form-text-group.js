@@ -1,7 +1,7 @@
 import {Form} from "react-bootstrap";
 import React from "react";
 
-export default function CustomFormTextGroup  ({_name, _pattern, _errorMessage, _value, _setValue} ){
+export default function CustomFormTextGroup  ({_name, _pattern, _errorMessage, _value, _setValue, _placeholder} ){
     return <Form.Group className={"mb-3 mt-3"}>
         <Form.Control
             value={_value}
@@ -9,7 +9,7 @@ export default function CustomFormTextGroup  ({_name, _pattern, _errorMessage, _
             name={_name}
             required
             type="text"
-            placeholder= {_name}
+            placeholder= {_placeholder !== undefined ? _placeholder : _name}
             pattern= {_pattern}
         />
         <Form.Control.Feedback>사용 가능합니다!</Form.Control.Feedback>
