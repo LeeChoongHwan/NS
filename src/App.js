@@ -10,14 +10,14 @@ import LoginPage from "./pages/user-form/login-page";
 import Base from "./pages/base";
 import {
     nav_accident_report_form_page,
-    nav_accident_report_page, nav_accident_report_result_page,
+    nav_accident_report_page, nav_accident_report_result_page, nav_reported_accident_list_page,
     nav_customer_home, nav_customer_member_home, nav_customer_non_member_home, nav_employee_home,
     nav_home,
     nav_insurance,
     nav_login, nav_paying_page,
     nav_signup_user,
     nav_uw,
-    nav_uw_contract
+    nav_uw_contract, nav_claim_compensation_page
 } from "./utils/url";
 import UwPage from "./pages/uw/uw-page";
 import UwContract from "./pages/uw/uw-contract";
@@ -29,6 +29,8 @@ import ContractList from "./pages/customer/payment/contract-list";
 import AccidentReportPage from "./pages/accident/accident-report-page";
 import AccidentReportFormPage from "./pages/accident/accident-report-form-page";
 import AccidentReportResultPage from "./pages/accident/accident-report-result-page";
+import ReportedAccidentListPage from "./pages/customer/comp/reported-accident-list-page";
+import ClaimCompensationPage from "./pages/customer/comp/claim_compensation_page";
 
 
 function App() {
@@ -47,6 +49,8 @@ function App() {
               <Route path={nav_accident_report_page()} element={<AccidentReportPage/>}/>
               <Route path={nav_accident_report_form_page()} element={<AccidentReportFormPage/>}/>
               <Route path={nav_accident_report_result_page()} element={<AccidentReportResultPage/>}/>
+              <Route path={nav_reported_accident_list_page()} element={<ReportedAccidentListPage/>}/>
+              <Route path={nav_claim_compensation_page()} element={<ClaimCompensationPage/>}/>
               <Route path={"/signup"} element={<ContractCustomerInfo/>}/>
               <Route path={"/signup/CAR"} element={<ContractCarInfoPage/>}/>
               <Route path={"/signup/FIRE"} element={<ContractFireInfoPage/>}/>
@@ -64,3 +68,4 @@ function App() {
 }
 
 export default App;
+

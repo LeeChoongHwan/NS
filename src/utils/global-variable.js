@@ -76,3 +76,49 @@ export const AccidentType = {
 }
 
 export const RequiredErrorMessage = "항목을 입력해 주세요";
+
+// 보상금 청구 서류
+export const CLAIM_COMP = {
+ eng : "CLAIM_COMP",
+ kor : "보상금 청구 서류"
+}
+// 진단서
+export const MEDICAL_CERTIFICATION = {
+ eng : "MEDICAL_CERTIFICATION",
+ kor :    "진단서"
+}
+
+// 입퇴원 확인서
+export const CONFIRM_ADMISSION_DISCHARGE = {
+    eng : "CONFIRM_ADMISSION_DISCHARGE",
+    kor : "입퇴원확인서"
+}
+// 사고 현장 사진
+export const PICTURE_OF_SITE = {
+    eng : "PICTURE_OF_SITE",
+    kor : "사고현장사진"
+}
+// 수리비 견젹서
+export const REPAIR_ESTIMATE = {
+ eng : "REPAIR_ESTIMATE",
+ kor :    "수리비 견젹서"
+}
+// 수리비 영수증
+export const REPAIR_RECEIPT = {
+    eng : "REPAIR_RECEIPT",
+    kor : "수리비 영수증"
+}
+// 교통사고 사실확인원
+export const CAR_ACCIDENT_FACT_CONFIRMATION =
+    {
+        eng : "CAR_ACCIDENT_FACT_CONFIRMATION",
+        kor : "교통사고 사실확인원"
+    }
+// 자동차보험금 지급결의서
+export const PAYMENT_RESOLUTION =
+    {eng : "PAYMENT_RESOLUTION",
+    kor : "자동차보험금 지급결의서"}
+// 사고조사보고서
+export const INVESTIGATE_ACCIDENT = ""
+// 손해사정서
+export const LOSS_ASSESSMENT = ""
