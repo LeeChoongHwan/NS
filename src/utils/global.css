@@ -24,3 +24,16 @@
     padding: 15px;
     margin: auto;
 }
+.w-80{
+    width: 80% !important;
+}
+.correct{
+    color : green;
+}
+.wrong{
+    color : red;
+    display: none;
+}
+.mr-3{
+    margin-right: 3px;
+}

@@ -190,5 +190,29 @@ export function convertAccidentReportHeader(accidentType){
         case AccidentType.INJURY_ACCIDENT:
             return "상해 사고 접수"
     }
+}
 
+export function convertAccidentTypeToKorean(accidentType){
+    switch (accidentType) {
+        case "CAR_ACCIDENT":
+            return "차량 사고"
+        case "CAR_BREAKDOWN":
+            return "차량 고장"
+        case "FIRE_ACCIDENT":
+            return "화재 사고";
+        case "INJURY_ACCIDENT":
+            return "상해 사고"
+    }
+}
+export function convertAccidentTypeToEng(accidentType){
+    switch (accidentType) {
+        case "차량 사고":
+            return "car-accident";
+        case "차량 고장":
+            return "car-breakdown"
+        case "화재 사고":
+            return  "fire-accident";
+        case "상해 사고":
+            return "injury-accident"
+    }
 }

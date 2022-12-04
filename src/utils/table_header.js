@@ -16,3 +16,11 @@ export const customer_payments_header = {
     companyName : "회사",
     num : "번호"
 }
+
+export const accident_list = {
+    id : "ID",
+    type : "사고 종류",
+    dateOfAccidnet : "사고 일시",
+    dateOfReport : "접수 일시",
+    comp : "담당자 정보"
+}

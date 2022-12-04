@@ -38,8 +38,14 @@ export const pay_premium = (contractId) => `/customer/pay/${contractId}`
 export const customer_payment = () => `/customer/payment`
 
 // Customer-Accident-Report
-export const report_accident = (accidentType) => `/acc/${accidentType}`
+export const report_accident = (accidentType) => `/acc/report/${accidentType}`
 
+// customer - claim - comp
+export const read_customer_accident = () => `/acc/info/list`
+export const read_accident_details = (type,accidentId) => `/acc/${type}/${accidentId}`
+export const submit_comp_file = (type,accidentId,doctype) => `/acc/submit/${type}/${accidentId}/${doctype}`
+export const claim_comp = (accidentId) => `/acc/claim/${accidentId}`
+export const change_emp = (accidentId) => `/acc/change-comp-employee/${accidentId}`
 
 // NAVIGATION
 export const nav_home = () => `/`
@@ -52,7 +58,8 @@ export const nav_paying_page = () => `/customer/paying`
 export const nav_accident_report_page = () => `/accident/report`
 export const nav_accident_report_form_page = () => `/accident/report/form`
 export const nav_accident_report_result_page = () => `/accident/report/result`
-
+export const nav_reported_accident_list_page = () => `/accident/list`
+export const nav_claim_compensation_page = () => `/claim/compensation`
 
 export const nav_employee_home = () => `/employee`
 export const nav_insurance = () => `/insurance/list`
