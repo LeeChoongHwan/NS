@@ -1,5 +1,5 @@
 import {contract_car, contract_fire, contract_health, sales_car, sales_fire, sales_health} from "./url";
-import {AccidentType, BuildingType, CarType} from "./global-variable";
+import {AccidentType, BuildingType, CarType, COMP_STATE} from "./global-variable";
 
 export function convertValues(obj) {
     if (obj === undefined || obj === null) return [];
@@ -214,5 +214,18 @@ export function convertAccidentTypeToEng(accidentType){
             return  "fire-accident";
         case "상해 사고":
             return "injury-accident"
+    }
+}
+
+export function convertCompStateToKor(compState){
+    switch (compState) {
+        case COMP_STATE.WAIT:
+            return "접수";
+        case COMP_STATE.INVESTIGATING:
+            return "손해조사"
+        case COMP_STATE.ASSESSMENT:
+            return  "손해사정";
+        case COMP_STATE.DONE:
+            return "보상 완료"
     }
 }

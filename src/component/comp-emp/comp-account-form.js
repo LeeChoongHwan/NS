@@ -1,18 +1,19 @@
+import React, {useState} from "react";
+import {BankType, BankTypeErrorMessage} from "../../utils/global-variable";
+import CustomFormTextGroup from "../form-group/custom-form-text-group";
+import {bank_type_pattern} from "../../utils/reg-pattern";
+import {tokenAxios} from "../../utils/cust-axios";
+import {nav_employee_home, send_compensation} from "../../utils/url";
+import {handleError} from "../../utils/exception/global-exception-handler";
 import {Button, Form} from "react-bootstrap";
-import {BankType, BankTypeErrorMessage, CardType} from "../../../utils/global-variable";
-import CustomFormTextGroup from "../../form-group/custom-form-text-group";
-import {bank_type_pattern, card_pattern} from "../../../utils/reg-pattern";
-import CustomFormNumberGroup from "../../form-group/custom-form-number-group";
-import React, {useEffect, useState} from "react";
-import {tokenAxios} from "../../../utils/cust-axios";
-import {customer_payment} from "../../../utils/url";
-import Row from "react-bootstrap/Row";
-import {handleError} from "../../../utils/exception/global-exception-handler";
+import {useNavigate} from "react-router-dom";
 
-export default function AccountSelect({_show, _setShow, _handleClose}) {
+export default function CompAccountForm({_id, _lossReserve}) {
     const [bankType, setBankType] = useState(BankType.KB)
     const [accountNo, setAccountNo] = useState("");
     const [validated, setValidated] = useState(false);
+    const [amount, setAmount] = useState(0);
+    const navigate = useNavigate();
 
     const changeState = (event) => {
         setBankType(event.target.value);
@@ -67,21 +68,7 @@ export default function AccountSelect({_show, _setShow, _handleClose}) {
             default:
                 return null
         }
-    }
 
-    useEffect(() => {
-        if (_show) {
-            document.querySelector(".form-account").style.display = "block";
-            document.querySelector(".form-area-account").style.display = "block"
-        } else {
-            document.querySelector(".form-account").style.display = "none";
-            document.querySelector(".form-area-account").style.display = "none"
-        }
-    }, [_show])
-
-    const clearInputValue = () =>{
-        setAccountNo("");
-        setValidated(false)
     }
 
     const handleSubmit = (event) => {
@@ -90,19 +77,23 @@ export default function AccountSelect({_show, _setShow, _handleClose}) {
         if (form.checkValidity() === false) {
             event.stopPropagation();
         } else {
-            tokenAxios().post(customer_payment(), {
-                payType: "ACCOUNT",
+            tokenAxios().post(send_compensation(_id), {
                 accountNo,
-                bankType,
-            }).then(() => {
-                alert("계좌가 등록되었습니다.");
-                clearInputValue();
+                bank :bankType,
+                amount
+            }).then((res) => {
+                alert(res.data.message)
+                moveToEmpMenu()
             }).catch(err => {
                 handleError(err);
             })
         }
         setValidated(true);
     };
+
+    const moveToEmpMenu = () => {
+        navigate(nav_employee_home(), {replace: true})
+    }
 
 
     return (
@@ -127,10 +118,24 @@ export default function AccountSelect({_show, _setShow, _handleClose}) {
 
                 <Form noValidate validated={validated} onSubmit={handleSubmit} className={"form-area-account"}>
                     {createAccountNoForm()}
-                    <Row xs={2} className={"mt-3"}>
-                        <Button type={"submit"}>등록</Button>
-                        <Button onClick={_handleClose} variant={"secondary"}>취소</Button>
-                    </Row>
+                    <Form.Label className={"label"}>보상금</Form.Label>
+                    <Form.Group className={"mb-3 mt-3"}>
+                        <Form.Control
+                            value={amount}
+                            onChange={(event)=>setAmount(event.target.value)}
+                            required
+                            type="number"
+
+                            placeholder= {"보상금"}
+                            min={0}
+                            max={_lossReserve}
+                        />
+                        <Form.Control.Feedback>사용 가능합니다!</Form.Control.Feedback>
+                        <Form.Control.Feedback type="invalid">
+                            {`0 ~ ${_lossReserve} 사이의 값을 입력해주세요`}
+                        </Form.Control.Feedback>
+                    </Form.Group>
+                    <Button type={"submit"}>등록</Button>
                 </Form>
             </div>
         </>

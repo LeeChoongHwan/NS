@@ -53,7 +53,7 @@ export const BankType = {
     IBK: "IBK",
     HANA: "HANA",
     CITY: "CITY",
-    SAEMAUL: "SAEMAUL"
+    SAEMAUL: "SAEMAUL",
 }
 export const BankTypeErrorMessage = {
     KB: "******-**-****** 형태로 입력해주세요(*은 숫자입니다)",
@@ -119,6 +119,19 @@ export const PAYMENT_RESOLUTION =
     {eng : "PAYMENT_RESOLUTION",
     kor : "자동차보험금 지급결의서"}
 // 사고조사보고서
-export const INVESTIGATE_ACCIDENT = ""
+export const INVESTIGATE_ACCIDENT = {
+    eng : "investigate-accident",
+    kor : "사고 조사 보고서"
+}
 // 손해사정서
-export const LOSS_ASSESSMENT = ""
+export const LOSS_ASSESSMENT =  {
+    eng : "LOSS_ASSESSMENT",
+    kor : "손해사정서"
+}
+
+export const COMP_STATE = {
+    WAIT : "WAIT",
+    INVESTIGATING : "INVESTIGATING",
+    ASSESSMENT: "ASSESSMENT",
+    DONE : "DONE"
+}

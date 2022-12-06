@@ -22,5 +22,13 @@ export const accident_list = {
     type : "사고 종류",
     dateOfAccidnet : "사고 일시",
     dateOfReport : "접수 일시",
+    state : "상태",
     comp : "담당자 정보"
+}
+
+export const comp_accident_list = {
+    id : "ID",
+    type : "사고 종류",
+    dateOfReport : "접수 일시",
+    state : "상태"
 }

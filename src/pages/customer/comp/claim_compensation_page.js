@@ -119,7 +119,7 @@ export default function ClaimCompensationPage() {
                     : null}
                 {accidentInfo.injurySite !== undefined ?
                     <Form.Group className={"mb-3"}>
-                        <Form.Label>사고 장소</Form.Label>
+                        <Form.Label>부상 부위</Form.Label>
                         <Form.Control value={accidentInfo.injurySite} readOnly/>
                     </Form.Group>
                     : null}
