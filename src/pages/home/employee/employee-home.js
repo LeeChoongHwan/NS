@@ -1,4 +1,4 @@
-import {Button} from "react-bootstrap";
+import {Button, Container} from "react-bootstrap";
 import {
     nav_comp_investigate_list, nav_comp_list,
     nav_comp_loss_assess_list,
@@ -44,12 +44,17 @@ export default function EmployeeHome(){
 
     return (
         <>
-            <Button lg variant={"primary"} onClick={moveToSalesPage}>영업 하기</Button>
-            <Button lg variant={"success"} onClick={moveToUwPage}>인수심사하기</Button>
-            <Button lg variant={"info"} onClick={() => moveTo(nav_comp_list())}>사고목록조회</Button>
-            <Button lg variant={"warning"} onClick={() => moveTo(nav_comp_investigate_list())}>손해조사</Button>
-            <Button lg variant={"light"} onClick={() => moveTo(nav_comp_loss_assess_list())}>손해사정</Button>
-            <Button onClick={logOut} variant={"dark"}>로그아웃</Button>
+            <Container className={"w-50"}>
+                <div className={"flex_box center mt-3 mb-3"}>
+                    <h4>직원 작업 목록</h4>
+                </div>
+            <Button className={"col-12 mt-3 mb-3"} lg variant={"primary"} onClick={moveToSalesPage}>영업 하기</Button>
+            <Button className={"col-12 mt-3 mb-3"} lg variant={"success"} onClick={moveToUwPage}>인수심사하기</Button>
+            <Button className={"col-12 mt-3 mb-3"} lg variant={"info"} onClick={() => moveTo(nav_comp_list())}>사고목록조회</Button>
+            <Button className={"col-12 mt-3 mb-3"} lg variant={"warning"} onClick={() => moveTo(nav_comp_investigate_list())}>손해조사</Button>
+            <Button className={"col-12 mt-3 mb-3"} lg variant={"light"} onClick={() => moveTo(nav_comp_loss_assess_list())}>손해사정</Button>
+            <Button className={"col-12 mt-3 mb-3"} onClick={logOut} variant={"dark"}>로그아웃</Button>
+            </Container>
         </>
     )
 

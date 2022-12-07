@@ -9,7 +9,7 @@ import {faCircleInfo} from "@fortawesome/free-solid-svg-icons";
 import {PICTURE_OF_SITE} from "../../utils/global-variable";
 
 
-export default function InvestigateUploader({_ex_url, _accidentId, _doc_type, _exist}) {
+export default function InvestigateUploader({_ex_url, _accidentId, _doc_type, _exist , _setExist}) {
 
     const [mode, setMode] = useState(false);
 
@@ -31,6 +31,7 @@ export default function InvestigateUploader({_ex_url, _accidentId, _doc_type, _e
         tokenAxios().post(submit_investigate_file(_accidentId),
             formData)
             .then(() => {
+                _setExist(true)
                 setMode(true)
                 alert(`${docType.kor} 제출했습니다.`)
             }).catch(err => handleError(err));

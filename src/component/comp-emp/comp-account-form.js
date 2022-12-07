@@ -13,6 +13,7 @@ export default function CompAccountForm({_id, _lossReserve}) {
     const [accountNo, setAccountNo] = useState("");
     const [validated, setValidated] = useState(false);
     const [amount, setAmount] = useState(0);
+    const [block, setBlock] = useState(false);
     const navigate = useNavigate();
 
     const changeState = (event) => {
@@ -25,44 +26,49 @@ export default function CompAccountForm({_id, _lossReserve}) {
         switch (bankType) {
             case BankType.KB :
                 return <CustomFormTextGroup _name={"계좌번호"} _value={accountNo} _setValue={setAccountNo}
-                                            _placeholder={BankTypeErrorMessage.KB}
+                                            _placeholder={BankTypeErrorMessage.KB} _block={block}
                                             _pattern={bank_type_pattern.KB} _errorMessage={BankTypeErrorMessage.KB}/>
             case BankType.NH :
                 return <CustomFormTextGroup _name={"계좌번호"} _value={accountNo} _setValue={setAccountNo}
-                                            _placeholder={BankTypeErrorMessage.NH}
+                                            _placeholder={BankTypeErrorMessage.NH} _block={block}
                                             _pattern={bank_type_pattern.NH} _errorMessage={BankTypeErrorMessage.NH}/>
             case BankType.KAKAOBANK :
                 return <CustomFormTextGroup _name={"계좌번호"} _value={accountNo} _setValue={setAccountNo}
-                                            _placeholder={BankTypeErrorMessage.NH}
+                                            _placeholder={BankTypeErrorMessage.NH} _block={block}
                                             _pattern={bank_type_pattern.KAKAOBANK}
                                             _errorMessage={BankTypeErrorMessage.KAKAOBANK}/>
             case BankType.SINHAN :
                 return <CustomFormTextGroup _name={"계좌번호"} _value={accountNo} _setValue={setAccountNo}
-                                            _pattern={bank_type_pattern.SINHAN}
+                                            _pattern={bank_type_pattern.SINHAN} _block={block}
                                             _placeholder={BankTypeErrorMessage.SINHAN}
                                             _errorMessage={BankTypeErrorMessage.SINHAN}/>
             case BankType.WOORI :
                 return <CustomFormTextGroup _name={"계좌번호"} _value={accountNo} _setValue={setAccountNo}
                                             _pattern={bank_type_pattern.WOORI}
+                                            _block={block}
                                             _placeholder={BankTypeErrorMessage.WOORI}
                                             _errorMessage={BankTypeErrorMessage.WOORI}/>
             case BankType.IBK :
                 return <CustomFormTextGroup _name={"계좌번호"} _value={accountNo} _setValue={setAccountNo}
                                             _placeholder={BankTypeErrorMessage.IBK}
+                                            _block={block}
                                             _pattern={bank_type_pattern.IBK} _errorMessage={BankTypeErrorMessage.IBK}/>
             case BankType.HANA :
                 return <CustomFormTextGroup _name={"계좌번호"} _value={accountNo} _setValue={setAccountNo}
                                             _pattern={bank_type_pattern.HANA}
+                                            _block={block}
                                             _placeholder={BankTypeErrorMessage.HANA}
                                             _errorMessage={BankTypeErrorMessage.HANA}/>
             case BankType.CITY :
                 return <CustomFormTextGroup _name={"계좌번호"} _value={accountNo} _setValue={setAccountNo}
                                             _pattern={bank_type_pattern.CITY}
+                                            _block={block}
                                             _placeholder={BankTypeErrorMessage.CITY}
                                             _errorMessage={BankTypeErrorMessage.CITY}/>
             case BankType.SAEMAUL :
                 return <CustomFormTextGroup _name={"계좌번호"} _value={accountNo} _setValue={setAccountNo}
                                             _pattern={bank_type_pattern.SAEMAUL}
+                                            _block={block}
                                             _placeholder={BankTypeErrorMessage.SAEMAUL}
                                             _errorMessage={BankTypeErrorMessage.SAEMAUL}/>
             default:
@@ -76,6 +82,7 @@ export default function CompAccountForm({_id, _lossReserve}) {
         event.preventDefault();
         if (form.checkValidity() === false) {
             event.stopPropagation();
+            setValidated(true);
         } else {
             tokenAxios().post(send_compensation(_id), {
                 accountNo,
@@ -83,12 +90,14 @@ export default function CompAccountForm({_id, _lossReserve}) {
                 amount
             }).then((res) => {
                 alert(res.data.message)
-                moveToEmpMenu()
+                setBlock(true)
+                // moveToEmpMenu()
             }).catch(err => {
                 handleError(err);
             })
+            setValidated(false);
         }
-        setValidated(true);
+
     };
 
     const moveToEmpMenu = () => {
@@ -118,24 +127,24 @@ export default function CompAccountForm({_id, _lossReserve}) {
 
                 <Form noValidate validated={validated} onSubmit={handleSubmit} className={"form-area-account"}>
                     {createAccountNoForm()}
-                    <Form.Label className={"label"}>보상금</Form.Label>
+                    <Form.Label className={"label"}>보상금 (지급 준비금 : &#8361;{_lossReserve})</Form.Label>
                     <Form.Group className={"mb-3 mt-3"}>
                         <Form.Control
                             value={amount}
                             onChange={(event)=>setAmount(event.target.value)}
                             required
                             type="number"
-
                             placeholder= {"보상금"}
                             min={0}
-                            max={_lossReserve}
+                            max={_lossReserve * 1.5}
+                            disabled={block}
                         />
                         <Form.Control.Feedback>사용 가능합니다!</Form.Control.Feedback>
                         <Form.Control.Feedback type="invalid">
                             {`0 ~ ${_lossReserve} 사이의 값을 입력해주세요`}
                         </Form.Control.Feedback>
                     </Form.Group>
-                    <Button type={"submit"}>등록</Button>
+                    <Button disabled={block} type={"submit"}>등록</Button>
                 </Form>
             </div>
         </>

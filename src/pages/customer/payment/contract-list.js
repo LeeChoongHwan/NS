@@ -5,8 +5,9 @@ import CustTable from "../../../component/cust-table";
 import {customer_contract_paying_header} from "../../../utils/table_header";
 import {ModalMode as ModalStatus} from "../../../utils/global-variable";
 import {useNavigate} from "react-router-dom";
-import {Button} from "react-bootstrap";
+import {Button, Container} from "react-bootstrap";
 import {handleError} from "../../../utils/exception/global-exception-handler";
+import Header from "../../../component/header";
 
 export default function ContractList(){
 
@@ -41,8 +42,11 @@ export default function ContractList(){
     }
     return (
         <>
+            <Container className={"mb-3"}>
+                <Header _content={"계약 목록"}/>
             <CustTable _head={customer_contract_paying_header} _body={contracts} _rowAction={createModal} _modalProps={modalState}></CustTable>
-            <Button onClick={moveToMemberPage}>뒤로가기</Button>
+            <Button variant={"dark"} onClick={moveToMemberPage}>뒤로가기</Button>
+            </Container>
         </>
 
     )

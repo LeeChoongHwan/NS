@@ -13,7 +13,7 @@ import {
 } from "../../utils/url";
 import {handleError} from "../../utils/exception/global-exception-handler";
 import ClaimCompGroup from "../../component/claim-comp/claim-comp-group";
-import {PICTURE_OF_SITE_CAR_EX} from "../../utils/download";
+import {INVESTIGATE_ACCIDENT_EX, PICTURE_OF_SITE_CAR_EX} from "../../utils/download";
 import {INVESTIGATE_ACCIDENT, PICTURE_OF_SITE} from "../../utils/global-variable";
 import InvestigateUploader from "../../component/comp-emp/investigate-uploader";
 import CustomFormNumberGroup from "../../component/form-group/custom-form-number-group";
@@ -28,6 +28,7 @@ export default function CompAccidentInvestigatePage() {
     const [errorRate, setErrorRate] = useState(0);
     const [lossReserves, setLossReserves] = useState(0);
     const [validated, setValidated] = useState(false);
+    const [exists, setExists] = useState(false);
 
     const navigate = useNavigate();
     useEffect(() => {
@@ -37,9 +38,19 @@ export default function CompAccidentInvestigatePage() {
             tokenAxios().get(read_accident_investigate(location.state.type, location.state.id))
                 .then(res => {
                     setAccidentInfo(res.data)
+                    setExists(res.data?.fileUrlMap?.investigate_accident)
                 }).catch(err => handleError(err))
+
         }
     }, [])
+
+    useEffect(() => {
+        if (exists)
+            document.querySelector(".investigate-area").style.display = "block"
+        else
+            document.querySelector(".investigate-area").style.display = "none"
+    }, [exists])
+
 
     const moveBack = () =>{
         navigate(nav_comp_investigate_list(), {replace:true});
@@ -66,12 +77,10 @@ export default function CompAccidentInvestigatePage() {
             }).then(() => {
                 const next = window.confirm("손해 조사가 완료되었습니다. \n 손해 사정을 진행하겠습니까?");
                 if(next){
-                    // TODO 손해 사정 페이지로 이동
                     moveToLossAssess()
                 }else{
                     moveBack()
                 }
-
             }).catch(err => {
                 handleError(err)
             })
@@ -146,9 +155,13 @@ export default function CompAccidentInvestigatePage() {
                 </div>
 
                 <InvestigateUploader _accidentId={id}
+                                     _setExist={setExists}
+                                     _ex_url={INVESTIGATE_ACCIDENT_EX}
                                      _exist={accidentInfo?.fileUrlMap?.investigate_accident !== undefined}
                                      _doc_type={INVESTIGATE_ACCIDENT}/>
 
+
+                <div className={"investigate-area mt-3 mb-3"}>
                 <Form noValidate validated={validated} onSubmit={handleSubmit}>
                     {type === "car-accident" ?
                         <div>
@@ -166,6 +179,8 @@ export default function CompAccidentInvestigatePage() {
                     />
                     <Button type={"submit"}>손해조사</Button>
                 </Form>
+                </div>
+
             <Button variant={"dark"} onClick={moveBack}>뒤로가기</Button>
 
             </Container>

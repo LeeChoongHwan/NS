@@ -22,7 +22,6 @@ export default function CompAccidentLossassessListPage(){
     useEffect(() => {
         tokenAxios().get(read_employee_accident_state(COMP_STATE.ASSESSMENT))
             .then((res) =>{
-                alert(res.data)
                 setAccidentList(res.data)
                 }
             ).catch(err =>{
@@ -47,11 +46,11 @@ export default function CompAccidentLossassessListPage(){
     return (
         <>
             <Container>
-                <div className={"flex_box center"}>
+                <div className={"flex_box center mt-3 mb-3"}>
                     <h4>손해 사정 사고 목록</h4>
                 </div>
                 <CompListTable _head={comp_accident_list} _body={accidentList} _action={moveToInvestigate}/>
-                <Button variant={"dark"} onClick={moveBack}>뒤로가기</Button>
+                <Button className={"mt-3 mb-3"} variant={"dark"} onClick={moveBack}>뒤로가기</Button>
             </Container>
         </>
     )

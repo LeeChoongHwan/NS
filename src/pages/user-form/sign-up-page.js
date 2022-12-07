@@ -71,6 +71,6 @@ export default function SignUpPage() {
         setValidated(true);
     };
     return (
-        <UserForm validated={validated} handleSubmit={handleSubmit} button_message={"가입하기"}></UserForm>
+        <UserForm validated={validated} handleSubmit={handleSubmit} button_message={"회원가입"}></UserForm>
     )
 }

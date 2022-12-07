@@ -45,7 +45,7 @@ export default function CompAccidentInvestigateListPage(){
     return (
         <>
             <Container>
-                <div className={"flex_box center"}>
+                <div className={"flex_box center mt-3 mb-3"}>
                     <h4>손해 조사 사고 목록</h4>
                 </div>
                 <CompListTable _head={comp_accident_list} _body={accidentList} _action={moveToInvestigate}/>

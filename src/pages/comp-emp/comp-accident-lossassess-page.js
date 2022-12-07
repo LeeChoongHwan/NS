@@ -1,7 +1,7 @@
 import {useLocation, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {tokenAxios} from "../../utils/cust-axios";
-import {nav_comp_investigate_list, read_accident_investigate} from "../../utils/url";
+import {nav_comp_investigate_list, nav_comp_loss_assess_list, read_accident_investigate} from "../../utils/url";
 import {handleError} from "../../utils/exception/global-exception-handler";
 import {Button, Container, Form} from "react-bootstrap";
 import {convertLocalDateTime} from "../../utils/convert-values";
@@ -9,6 +9,7 @@ import ReportedFilesList from "../../component/comp-emp/reported-files-list";
 import {LOSS_ASSESSMENT} from "../../utils/global-variable";
 import LossAssessmentUploader from "../../component/comp-emp/loss-assessment-uploader";
 import CompAccountForm from "../../component/comp-emp/comp-account-form";
+import {LOSS_ASSESSMENT_EX} from "../../utils/download";
 
 export default function CompAccidentLossassessPage() {
     const location = useLocation();
@@ -26,6 +27,7 @@ export default function CompAccidentLossassessPage() {
             tokenAxios().get(read_accident_investigate(location.state.type, location.state.id))
                 .then(res => {
                     setAccidentInfo(res.data)
+                    setSubmitted(res.data?.fileUrlMap?.loss_assessment!== undefined)
                 }).catch(err => handleError(err))
         }
     }, [])
@@ -39,7 +41,7 @@ export default function CompAccidentLossassessPage() {
 
 
     const moveBack = () => {
-        navigate(nav_comp_investigate_list(), {replace: true});
+        navigate(nav_comp_loss_assess_list(), {replace: true});
     }
 
     return (
@@ -109,9 +111,10 @@ export default function CompAccidentLossassessPage() {
                 </div>
 
                 <LossAssessmentUploader _accidentId={id} _exist={submitted} _setExist={setSubmitted}
+                                        _ex_url={LOSS_ASSESSMENT_EX}
                                         _doc_type={LOSS_ASSESSMENT}/>
 
-                <div className={"comp-account-area"}>
+                <div className={"comp-account-area mt-3 mb-3"}>
                     <CompAccountForm _id={id} _lossReserve={accidentInfo?.lossReserves}/>
                 </div>
                 <Button variant={"dark"} onClick={moveBack}>뒤로가기</Button>
