@@ -37,3 +37,10 @@
 .mr-3{
     margin-right: 3px;
 }
+.label{
+    position: relative;
+    top: 15px;
+}
+.none{
+    display: none;
+}

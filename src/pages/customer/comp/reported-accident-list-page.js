@@ -31,7 +31,7 @@ export default function ReportedAccidentListPage() {
                 <h3>접수된 사고 목록</h3>
                 </div>
                 <AccidentListTable _head={accident_list} _body={accidentList} _rowAction={null}/>
-                <Button onClick={() => navigate(nav_customer_member_home())}>뒤로 가기</Button>
+                <Button variant={"dark"} onClick={() => navigate(nav_customer_member_home())}>뒤로 가기</Button>
             </Container>
         </>
     )

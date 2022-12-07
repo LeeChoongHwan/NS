@@ -1,10 +1,14 @@
 import {Form} from "react-bootstrap";
+import Header from "./header";
 
 export default function UserForm({validated, handleSubmit, button_message}){
     return (
+<>
+
         <div className={"flex_box flex_box_center"}>
             <div className="form-signin">
                 <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                    <Header _content={button_message}/>
                     <Form.Group className={"mb-3"}>
                         <Form.Control
                             required
@@ -30,5 +34,6 @@ export default function UserForm({validated, handleSubmit, button_message}){
                 </Form>
             </div>
         </div>
+</>
     )
 }

@@ -7,6 +7,8 @@ import {insurance_all, nav_customer_non_member_home, nav_employee_home} from "..
 import {useLocation, useNavigate} from "react-router-dom";
 import {ModalMode, mode_direct} from "../utils/global-variable";
 import {globalExceptionHandler, handleError} from "../utils/exception/global-exception-handler";
+import Header from "../component/header";
+import {convertInsuranceType} from "../utils/convert-values";
 
 
 export default function InsuranceList() {
@@ -30,6 +32,7 @@ export default function InsuranceList() {
 
         baseAxios().get(insurance_all())
             .then(function (response) {
+                response.data.map(r => r.type = convertInsuranceType(r.type))
                 setList(response.data);
             })
             .catch( (error)=> {
@@ -52,9 +55,10 @@ export default function InsuranceList() {
 
     return <>
         <Container>
+            <Header _content={"보험 목록"}/>
             <CustTable _head={InsuranceListSample().head} _body={list} _rowAction={createModal}
                        _modalProps={listProps}/>
-            <Button onClick={moveToBack}>뒤로가기</Button>
+            <Button variant={"dark"} onClick={moveToBack}>뒤로가기</Button>
         </Container>
     </>
 }

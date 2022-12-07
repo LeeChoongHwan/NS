@@ -47,6 +47,16 @@ export const submit_comp_file = (type,accidentId,doctype) => `/acc/submit/${type
 export const claim_comp = (accidentId) => `/acc/claim/${accidentId}`
 export const change_emp = (accidentId) => `/acc/change-comp-employee/${accidentId}`
 
+
+// employee - comp
+export const read_employee_accident = () => `/emp/comp/list`
+export const read_employee_accident_state = (state) => `/emp/comp/list/${state}`
+export const read_accident_investigate = (accidentType, accidentId) => `/emp/comp/${accidentType}/${accidentId}`
+export const investigate_accident = (accidentId) => `/emp/comp/investigate/${accidentId}`
+export const submit_investigate_file = (accidentId) => `/emp/comp/submit/investigate-accident/${accidentId}`
+export const submit_loss_assessment = (accidentId) => `/emp/comp/submit/loss-assessment/${accidentId}`
+export const send_compensation = (accidentId) => `/emp/comp/pay/${accidentId}`
+
 // NAVIGATION
 export const nav_home = () => `/`
 export const nav_customer_home = () => `/customer`
@@ -69,3 +79,8 @@ export const nav_signup_type = (insuranceType) => `/signup/${insuranceType}`
 export const nav_login = () => `/login`
 export const nav_uw = () => `/uw`
 export const nav_uw_contract = () => `/uw/contract`
+export const nav_comp_list = () => `/comp/list`
+export const nav_comp_investigate_list = () => `/comp/investigate/list`
+export const nav_comp_investigate = () => `/comp/investigate`
+export const nav_comp_loss_assess_list = () => `/comp/lossAssess/list`
+export const nav_comp_loss_assess = () => `/comp/lossAssess`

@@ -10,14 +10,25 @@ import LoginPage from "./pages/user-form/login-page";
 import Base from "./pages/base";
 import {
     nav_accident_report_form_page,
-    nav_accident_report_page, nav_accident_report_result_page, nav_reported_accident_list_page,
-    nav_customer_home, nav_customer_member_home, nav_customer_non_member_home, nav_employee_home,
+    nav_accident_report_page,
+    nav_accident_report_result_page,
+    nav_reported_accident_list_page,
+    nav_customer_home,
+    nav_customer_member_home,
+    nav_customer_non_member_home,
+    nav_employee_home,
     nav_home,
     nav_insurance,
-    nav_login, nav_paying_page,
+    nav_login,
+    nav_paying_page,
     nav_signup_user,
     nav_uw,
-    nav_uw_contract, nav_claim_compensation_page
+    nav_uw_contract,
+    nav_claim_compensation_page,
+    nav_comp_list,
+    nav_comp_investigate_list,
+    nav_comp_investigate,
+    nav_comp_loss_assess, nav_comp_loss_assess_list
 } from "./utils/url";
 import UwPage from "./pages/uw/uw-page";
 import UwContract from "./pages/uw/uw-contract";
@@ -31,6 +42,11 @@ import AccidentReportFormPage from "./pages/accident/accident-report-form-page";
 import AccidentReportResultPage from "./pages/accident/accident-report-result-page";
 import ReportedAccidentListPage from "./pages/customer/comp/reported-accident-list-page";
 import ClaimCompensationPage from "./pages/customer/comp/claim_compensation_page";
+import CompAccidentListPage from "./pages/comp-emp/comp-accident-list-page";
+import CompAccidentInvestigateListPage from "./pages/comp-emp/comp-accident-investigate-list-page";
+import CompAccidentInvestigatePage from "./pages/comp-emp/comp-accident-investigate-page";
+import CompAccidentLossassessListPage from "./pages/comp-emp/comp-accident-lossassess-list-page";
+import CompAccidentLossassessPage from "./pages/comp-emp/comp-accident-lossassess-page";
 
 
 function App() {
@@ -58,6 +74,13 @@ function App() {
               <Route path={nav_signup_user()} element={<SignUpPage/>}/>
               <Route path={nav_uw()} element={<UwPage/>}/>
               <Route path={nav_uw_contract()} element={<UwContract/>}/>
+              <Route path={nav_comp_list()} element={<CompAccidentListPage/>}/>
+              <Route path={nav_comp_investigate_list()} element={<CompAccidentInvestigateListPage/>}/>
+              <Route path={nav_comp_investigate()} element={<CompAccidentInvestigatePage/>}/>
+              <Route path={nav_comp_loss_assess_list()} element={<CompAccidentLossassessListPage/>}/>
+              <Route path={nav_comp_loss_assess()} element={<CompAccidentLossassessPage/>}/>
+
+
               <Route path={nav_login()} element={<LoginPage/>}/>
               <Route path={"/**"} element={<ErrorPage/>}/>
           </Routes>
