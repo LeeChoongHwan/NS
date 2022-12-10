@@ -16,3 +16,7 @@ export function tokenAxios() {
         }
     });
 }
+
+export const healthCheck = async () => {
+    return await baseAxios().get(`/healthCheck`)
+}

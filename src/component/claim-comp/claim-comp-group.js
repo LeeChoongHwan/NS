@@ -1,8 +1,12 @@
 import {Button, Form} from "react-bootstrap";
 import Col from "react-bootstrap/Col";
-import {tokenAxios} from "../../utils/cust-axios";
+import {healthCheck, tokenAxios} from "../../utils/cust-axios";
 import {submit_comp_file} from "../../utils/url";
-import {handleError} from "../../utils/exception/global-exception-handler";
+import {
+    handleConnectionError,
+    handleError,
+    handleFileNotFoundError
+} from "../../utils/exception/global-exception-handler";
 import {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircleInfo} from "@fortawesome/free-solid-svg-icons";
@@ -26,6 +30,9 @@ export default function ClaimCompGroup({_ex_url, _accidentId, _accidentType, _do
         }
 
         const file = document.querySelector(`.${docType.eng}`).files[0];
+        
+        // TODO 협의 하에 파일 사이즈 에러 만들기
+        
         const formData = new FormData();
         formData.append("multipartFile", file);
         tokenAxios().post(submit_comp_file(_accidentType, _accidentId, docType.eng),
@@ -33,7 +40,23 @@ export default function ClaimCompGroup({_ex_url, _accidentId, _accidentType, _do
             .then(() => {
                 setMode(true)
                 alert(`${docType.kor} 제출했습니다.`)
-            }).catch(err => handleError(err));
+            }).catch(err =>
+        {
+            if (err?.response?.data?.errorMessage !== undefined) {
+                alert(err?.response?.data?.errorMessage)
+            } else {
+                console.log(err)
+                healthCheck()
+                    .catch(error => {
+                        console.log(error)
+                        if (error.response.status === 0)
+                            handleConnectionError(error);
+                        else {
+                            handleFileNotFoundError();
+                        }
+                    });
+            }
+        });
     }
 
 
