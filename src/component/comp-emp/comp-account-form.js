@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {BankType, BankTypeErrorMessage} from "../../utils/global-variable";
 import CustomFormTextGroup from "../form-group/custom-form-text-group";
 import {bank_type_pattern} from "../../utils/reg-pattern";
@@ -34,7 +34,7 @@ export default function CompAccountForm({_id, _lossReserve}) {
                                             _pattern={bank_type_pattern.NH} _errorMessage={BankTypeErrorMessage.NH}/>
             case BankType.KAKAOBANK :
                 return <CustomFormTextGroup _name={"계좌번호"} _value={accountNo} _setValue={setAccountNo}
-                                            _placeholder={BankTypeErrorMessage.NH} _block={block}
+                                            _placeholder={BankTypeErrorMessage.KAKAOBANK} _block={block}
                                             _pattern={bank_type_pattern.KAKAOBANK}
                                             _errorMessage={BankTypeErrorMessage.KAKAOBANK}/>
             case BankType.SINHAN :
@@ -125,7 +125,7 @@ export default function CompAccountForm({_id, _lossReserve}) {
                     <option value={BankType.IBK}>IBK</option>
                 </Form.Select>
 
-                <Form noValidate validated={validated} onSubmit={handleSubmit} className={"form-area-account"}>
+                <Form noValidate validated={validated} onSubmit={handleSubmit} >
                     {createAccountNoForm()}
                     <Form.Label className={"label"}>보상금 (지급 준비금 : &#8361;{_lossReserve})</Form.Label>
                     <Form.Group className={"mb-3 mt-3"}>
