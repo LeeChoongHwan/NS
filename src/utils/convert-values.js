@@ -166,7 +166,6 @@ export function convertCarTypeToKorean(carType) {
     }
 }
 
-
 export function convertBoolean(boolean){
     return boolean ? "예" : "아니오";
 }

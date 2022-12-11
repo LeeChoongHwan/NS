@@ -19,8 +19,8 @@ export default function ContractCarInfoPage() {
     const [premium,setPremium] = useState(0);
     const [premiumModalShow, setPremiumModalShow] = useState(false);
     const  [type ,setType] = useState();
-    const navigate = useNavigate()
-    const location = useLocation()
+    const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         if (location.state.customerDto !== undefined) {
