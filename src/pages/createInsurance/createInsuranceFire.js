@@ -107,8 +107,10 @@ export default function CreateInsuranceFire() {
             }
             ).then(response => {
             setPremium(response.data.premium);
-            // FireDetailDtoList.premium = response.data.premium
             handleShow();
+            setDto({
+                insuranceBasicInfoDto, guaranteeDtoList, FireDetailDtoList
+            })
             setGuaranteeList([guaranteeDtoList]);
             setFireDetailList([FireDetailDtoList]);
             }).catch(err => console.error(err));
@@ -126,7 +128,7 @@ export default function CreateInsuranceFire() {
                 fireDetailDtoList:fireDatailList
             }
             ).then (
-                // navigate(nav_create_insurance_list())
+                navigate(nav_create_insurance_list())
             )
 
     }

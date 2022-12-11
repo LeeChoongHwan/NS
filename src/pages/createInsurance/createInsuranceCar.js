@@ -9,6 +9,7 @@ import { nav_create_insurance_list } from '../../utils/url';
 import Modal from 'react-bootstrap/Modal';
 import {baseAxios, tokenAxios} from "../../utils/cust-axios";
 import { calculate_car_premium } from '../../utils/url';
+import { create_car_insurance } from '../../utils/url';
 
 export default function CreateInsuranceCar() {
     const navigate = useNavigate();
@@ -17,6 +18,9 @@ export default function CreateInsuranceCar() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [premium,setPremium] = useState(0);
+    const [dto, setDto] = useState(Object);
+    const [guaranteeList, setGuaranteeList] = useState([]);
+    const [carDetailList, setCarDetailList] = useState([]);
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
@@ -35,7 +39,7 @@ export default function CreateInsuranceCar() {
         };
 
         const insuranceBasicInfoDto = {
-            name : form.insuranceName.value,
+            name : form.name.value,
             description : form.description.value,
             contractPeriod : form.contractPeriod.value,
             paymentPeriod : form.paymentPeriod.value
@@ -92,22 +96,42 @@ export default function CreateInsuranceCar() {
                     Rcount++;
                 }
             })
-
-
-            // setDto({
-            //     standardPremiumDto,healthDetailDto
-            // })
+            setDto({
+                standardPremiumDto,carDetailDto
+            })
 
         tokenAxios().post(calculate_car_premium()
             ,{
-                standardPremiumDto:standardPremiumDto,
-                carDetailDto:carDetailDto
+                standardPremiumDto:dto.standardPremiumDto,
+                carDetailDto:dto.carDetailDto
             }
         ).then(response => {
             setPremium(response.data.premium);
+            carDetailDto.premium = response.data.premium
+            setDto({
+                insuranceBasicInfoDto, guaranteeDtoList, carDetailDtoList
+            })
+            setGuaranteeList([guaranteeDtoList]);
+            setCarDetailList([carDetailDtoList]);
             handleShow();
         }).catch(err => console.error(err));
+    }
+
+    const handleRegister = (event) => {
+        const form = event.currentTarget;
+        event.preventDefault();
+
         
+            tokenAxios().post(create_car_insurance()
+            ,{
+                insuranceBasicInfoDto:dto.insuranceBasicInfoDto,
+                guaranteeDtoList:guaranteeList,
+                carDetailDtoList:carDetailList
+            }
+            ).then (
+                navigate(nav_create_insurance_list())
+            )
+
     }
 
     return(
@@ -331,7 +355,7 @@ export default function CreateInsuranceCar() {
                 <Button variant="secondary" onClick={handleClose}>
                     취소
                 </Button>
-                <Button variant="primary">
+                <Button variant="primary" onClick={handleRegister}>
                     가입
                 </Button>
             </Modal.Footer>
