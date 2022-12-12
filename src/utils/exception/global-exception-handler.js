@@ -1,4 +1,5 @@
 import {FILE_NOT_FOUND_ERROR, SERVER_CONNECTION_ERROR} from "./global-error-message";
+import {SERVER_CONNECTION_ERROR} from "./global-error-message";
 
 export const handleConnectionError = (errMessage) => {
     switch (errMessage) {

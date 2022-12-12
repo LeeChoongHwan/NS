@@ -17,6 +17,8 @@ import {
     nav_customer_member_home,
     nav_customer_non_member_home,
     nav_employee_home,
+  nav_create_insurance_list,
+    nav_customer_home, nav_customer_non_member_home, nav_employee_home,
     nav_home,
     nav_insurance,
     nav_login,
@@ -29,6 +31,11 @@ import {
     nav_comp_investigate_list,
     nav_comp_investigate,
     nav_comp_loss_assess, nav_comp_loss_assess_list
+    nav_uw_contract,
+    nav_create_insurance_fire,
+    nav_create_insurance_car,
+    nav_create_insurance_health,
+    nav_insurance_auth
 } from "./utils/url";
 import UwPage from "./pages/uw/uw-page";
 import UwContract from "./pages/uw/uw-contract";
@@ -48,6 +55,12 @@ import CompAccidentInvestigatePage from "./pages/comp-emp/comp-accident-investig
 import CompAccidentLossassessListPage from "./pages/comp-emp/comp-accident-lossassess-list-page";
 import CompAccidentLossassessPage from "./pages/comp-emp/comp-accident-lossassess-page";
 
+import CreateInsuranceList from "./pages/createInsurance/createInsuranceList";
+import CreateInsuranceCar from "./pages/createInsurance/createInsuranceCar";
+import CreateInsuranceHealth from "./pages/createInsurance/createInsuranceHealth";
+import CreateInsuranceFire from "./pages/createInsurance/createInsuranceFire";
+import AuthInsurance from "./pages/createInsurance/authInsurance";
+import { element } from "prop-types";
 
 function App() {
   return (
@@ -83,6 +96,11 @@ function App() {
 
               <Route path={nav_login()} element={<LoginPage/>}/>
               <Route path={"/**"} element={<ErrorPage/>}/>
+              <Route path={nav_create_insurance_list()} element={<CreateInsuranceList/>}/>
+              <Route path={nav_create_insurance_fire()} element={<CreateInsuranceFire/>}/>
+              <Route path={nav_create_insurance_car()} element={<CreateInsuranceCar/>}/>
+              <Route path={nav_create_insurance_health()} element={<CreateInsuranceHealth/>}/>
+              <Route path={nav_insurance_auth()} element={<AuthInsurance/>}/>
           </Routes>
         </Router>
 

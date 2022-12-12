@@ -56,6 +56,17 @@ export const investigate_accident = (accidentId) => `/emp/comp/investigate/${acc
 export const submit_investigate_file = (accidentId) => `/emp/comp/submit/investigate-accident/${accidentId}`
 export const submit_loss_assessment = (accidentId) => `/emp/comp/submit/loss-assessment/${accidentId}`
 export const send_compensation = (accidentId) => `/emp/comp/pay/${accidentId}`
+//CreateInsurance
+export const show_dev_insurance_list = () => `/emp/dev/list`;
+export const calculate_car_premium = () => `/emp/dev/car-premium`;
+export const calculate_fire_premium = () => `/emp/dev/fire-premium`;
+export const calculate_health_premium = () => `/emp/dev/health-premium`;
+export const create_health_insurance = () => `/emp/dev/save-health`;
+export const create_fire_insurance = () => `/emp/dev/save-fire`;
+export const create_car_insurance = () => `/emp/dev/save-car`;
+export const get_auth_ins_data = (insuranceId) => `/emp/dev/auth-file/${insuranceId}`;
+export const upload_auth_file = (type, insuranceId) => `/emp/dev/auth-file/${type}/${insuranceId}`;
+export const change_auth_condition = (insuranceId) => `/emp/dev/update-auth-state/${insuranceId}`;
 
 // NAVIGATION
 export const nav_home = () => `/`
@@ -79,6 +90,11 @@ export const nav_signup_type = (insuranceType) => `/signup/${insuranceType}`
 export const nav_login = () => `/login`
 export const nav_uw = () => `/uw`
 export const nav_uw_contract = () => `/uw/contract`
+export const nav_create_insurance_list = () => `/createInsuranceList`
+export const nav_create_insurance_health = () => `/createInsurance/health`
+export const nav_create_insurance_car = () => `/createInsurance/car`
+export const nav_create_insurance_fire = () => `/createInsurance/fire`
+export const nav_insurance_auth = () =>`/insuranceAuth`
 export const nav_comp_list = () => `/comp/list`
 export const nav_comp_investigate_list = () => `/comp/investigate/list`
 export const nav_comp_investigate = () => `/comp/investigate`
