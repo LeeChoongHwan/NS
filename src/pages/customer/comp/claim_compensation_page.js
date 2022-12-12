@@ -53,7 +53,7 @@ export default function ClaimCompensationPage() {
         return mode ? <>
             <div className={"flex_box justify-content-between"}>
                 <div className={"comp-emp-info"}>
-                    보상처리 담장자 : {emp.name} {emp.phone}
+                    보상처리 담당자 : {emp.name} {emp.phone}
                 </div>
                 <div>
             <Button variant={"dark"} onClick={moveToBack} className={"mr-3"}>뒤로가기</Button> <Button

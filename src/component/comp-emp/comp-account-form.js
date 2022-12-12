@@ -91,7 +91,7 @@ export default function CompAccountForm({_id, _lossReserve}) {
             }).then((res) => {
                 alert(res.data.message)
                 setBlock(true)
-                // moveToEmpMenu()
+                moveToEmpMenu()
             }).catch(err => {
                 handleError(err);
             })
@@ -141,7 +141,7 @@ export default function CompAccountForm({_id, _lossReserve}) {
                         />
                         <Form.Control.Feedback>사용 가능합니다!</Form.Control.Feedback>
                         <Form.Control.Feedback type="invalid">
-                            {`0 ~ ${_lossReserve} 사이의 값을 입력해주세요`}
+                            {`0 ~ ${_lossReserve * 1.5} 사이의 값을 입력해주세요`}
                         </Form.Control.Feedback>
                     </Form.Group>
                     <Button disabled={block} type={"submit"}>등록</Button>

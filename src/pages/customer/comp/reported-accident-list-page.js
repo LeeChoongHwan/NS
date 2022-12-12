@@ -1,7 +1,6 @@
-import CustTable from "../../../component/cust-table";
 import {useEffect, useState} from "react";
 import {tokenAxios} from "../../../utils/cust-axios";
-import {nav_customer_home, nav_customer_member_home, read_customer_accident} from "../../../utils/url";
+import {nav_customer_member_home, read_customer_accident} from "../../../utils/url";
 import {handleError} from "../../../utils/exception/global-exception-handler";
 import AccidentListTable from "../../../component/accident-list-table";
 import {accident_list} from "../../../utils/table_header";
