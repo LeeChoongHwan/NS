@@ -11,7 +11,7 @@ import {handleError} from "../../../utils/exception/global-exception-handler";
 
 export default function CardSelect({_show, _setShow, _handleClose}) {
 
-    const [cardType, setCardType] = useState()
+    const [cardType, setCardType] = useState(CardType.KB)
     const [validated, setValidated] = useState(false);
     const [cardNo, setCardNo] = useState("")
     const [cvcNo, setCvcNo] = useState();

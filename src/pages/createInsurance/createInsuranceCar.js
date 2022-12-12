@@ -10,6 +10,7 @@ import Modal from 'react-bootstrap/Modal';
 import {baseAxios, tokenAxios} from "../../utils/cust-axios";
 import { calculate_car_premium } from '../../utils/url';
 import { create_car_insurance } from '../../utils/url';
+import {handleError} from "../../utils/exception/global-exception-handler";
 
 export default function CreateInsuranceCar() {
     const navigate = useNavigate();
@@ -114,7 +115,7 @@ export default function CreateInsuranceCar() {
             setGuaranteeList([guaranteeDtoList]);
             setCarDetailList([carDetailDtoList]);
             handleShow();
-        }).catch(err => console.error(err));
+        }).catch(err => handleError(err));
     }
 
     const handleRegister = (event) => {
@@ -128,9 +129,9 @@ export default function CreateInsuranceCar() {
                 guaranteeDtoList:guaranteeList,
                 carDetailDtoList:carDetailList
             }
-            ).then (
+            ).then (() =>
                 navigate(nav_create_insurance_list())
-            )
+            ).catch(err => handleError(err))
 
     }
 

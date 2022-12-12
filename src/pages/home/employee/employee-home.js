@@ -1,5 +1,13 @@
-import {Button} from "react-bootstrap";
-import {nav_home, nav_insurance, nav_login, nav_uw} from "../../../utils/url";
+import {Button, Container} from "react-bootstrap";
+import {
+    nav_comp_investigate_list,
+    nav_comp_list, nav_comp_loss_assess_list,
+    nav_create_insurance_list,
+    nav_home,
+    nav_insurance,
+    nav_login,
+    nav_uw
+} from "../../../utils/url";
 import {mode_sales} from "../../../utils/global-variable";
 import {useNavigate} from "react-router-dom";
 
@@ -51,7 +59,7 @@ export default function EmployeeHome() {
                 <Button className={"col-12 mt-3 mb-3"} lg variant={"success"} onClick={moveToUwPage}>인수심사하기</Button>
                 <Button className={"col-12 mt-3 mb-3"} lg variant={"info"} onClick={moveToCreateInsurancePage}>보험
                     설계하기</Button>
-                <Button className={"col-12 mt-3 mb-3"} lg variant={"info"}
+                <Button className={"col-12 mt-3 mb-3"} lg variant={"secondary"}
                         onClick={() => moveTo(nav_comp_list())}>사고목록조회</Button>
                 <Button className={"col-12 mt-3 mb-3"} lg variant={"warning"}
                         onClick={() => moveTo(nav_comp_investigate_list())}>손해조사</Button>

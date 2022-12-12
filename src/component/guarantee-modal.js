@@ -14,7 +14,6 @@ export default function GuaranteeModal({_show, _handleShow, _id, _mode}) {
             baseAxios().get(`/insurance/${_id}`)
                 .then(response => {
                     setInsurance(response.data)
-                    console.log(response.data)
                 }).catch(error =>  handleError(error))
         }
     },[_id])

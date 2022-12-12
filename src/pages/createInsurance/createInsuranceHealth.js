@@ -9,6 +9,7 @@ import { calculate_health_premium, nav_create_insurance_list } from '../../utils
 import Modal from 'react-bootstrap/Modal';
 import {baseAxios, tokenAxios} from "../../utils/cust-axios";
 import { create_health_insurance } from '../../utils/url';
+import {handleError} from "../../utils/exception/global-exception-handler";
 
 export default function CreateInsuranceHealth() {
 
@@ -117,7 +118,7 @@ export default function CreateInsuranceHealth() {
             setHealthDetailList([healthDetailDtoList]);
             handleShow();
             
-            }).catch(err => console.error(err));
+            }).catch(err => handleError(err));
     }
 
 
@@ -132,9 +133,9 @@ export default function CreateInsuranceHealth() {
                 guaranteeDtoList:guaranteeList,
                 healthDetailDtoList:healthDatailList
             }
-            ).then (
+            ).then ( () =>
                 navigate(nav_create_insurance_list())
-            )
+            ).catch(err => handleError(err))
 
     }
 

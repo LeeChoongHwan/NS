@@ -10,6 +10,7 @@ import Modal from 'react-bootstrap/Modal';
 import {baseAxios, tokenAxios} from "../../utils/cust-axios";
 import {getBuildingTypeFromCheckedForm} from "../../utils/convert-values";
 import { create_fire_insurance } from '../../utils/url';
+import {handleError} from "../../utils/exception/global-exception-handler";
 
 export default function CreateInsuranceFire() {
     const navigate = useNavigate();
@@ -113,7 +114,7 @@ export default function CreateInsuranceFire() {
             })
             setGuaranteeList([guaranteeDtoList]);
             setFireDetailList([FireDetailDtoList]);
-            }).catch(err => console.error(err));
+            }).catch(err => handleError(err));
     }
 
     const handleRegister = (event) => {
@@ -127,9 +128,9 @@ export default function CreateInsuranceFire() {
                 guaranteeDtoList:guaranteeList,
                 fireDetailDtoList:fireDatailList
             }
-            ).then (
+            ).then ( () =>
                 navigate(nav_create_insurance_list())
-            )
+            ).catch(err => handleError(err))
 
     }
 
