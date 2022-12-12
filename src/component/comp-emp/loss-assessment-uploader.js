@@ -1,7 +1,7 @@
 import {Button, Form} from "react-bootstrap";
 import Col from "react-bootstrap/Col";
 import {tokenAxios} from "../../utils/cust-axios";
-import {submit_comp_file, submit_investigate_file, submit_loss_assessment} from "../../utils/url";
+import {submit_loss_assessment} from "../../utils/url";
 import {handleError} from "../../utils/exception/global-exception-handler";
 import {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
