@@ -1,70 +1,25 @@
-# Getting Started with Create React App
+# <p align="center"> 🏥보험사 시스템 <p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## <p align="center"> 🛠 Tech Stacks </p>
 
-In the project directory, you can run:
+### <p align="center"> Back-end </p>
 
-### `npm start`
+<p align="center"><img src="https://user-images.githubusercontent.com/76154390/207018903-32320a1e-abd0-4564-9d09-b042ef39c665.png"/><p>
+  
+### <p align="center"> Front-end </p>
+<p align="center"><img src="https://user-images.githubusercontent.com/76154390/207020811-d77d8d23-1d2f-4547-b2ff-cca8ed960efb.png"/><p>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## <p align="center"> 🏗 Project Architecture </p>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<p align="center"><img src="https://user-images.githubusercontent.com/76154390/207024373-2ed95734-9abd-4b90-aa22-ae4b8f88feb7.png"/><p>
 
-### `npm test`
+  
+## <p align="center"> 👨‍💻 Member</p>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+|황승호|김규현|이충환|
+|:-:|:--:|:-:|
+|<img src="https://avatars.githubusercontent.com/u/42243302?v=4" alt="hsh47607" width="100" height="100">|<img src="https://avatars.githubusercontent.com/u/76154390?v=4" alt="kgh2120" width="100" height="100">|<img src="https://avatars.githubusercontent.com/u/102038187?v=4" alt="LeeChoongHwan" width="100" height="100">|
+|[hsh47607](https://github.com/hsh47607)|[kgh2120](https://github.com/kgh2120)|[LeeChoongHwan](https://github.com/LeeChoongHwan)|
