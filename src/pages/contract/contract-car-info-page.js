@@ -9,6 +9,7 @@ import {getCarTypeFromCheckedForm} from "../../utils/convert-values";
 import {baseAxios} from "../../utils/cust-axios";
 import PremiumModal from "../../component/premium_modal";
 import {inquire_car, nav_signup_user} from "../../utils/url";
+import {handleError} from "../../utils/exception/global-exception-handler";
 
 export default function ContractCarInfoPage() {
     const [validated, setValidated] = useState(false);
@@ -55,7 +56,7 @@ export default function ContractCarInfoPage() {
                     setPremiumModalShow(true);
                     contractDto.premium = response.data.premium;
                     setCarContractDto(contractDto);
-                }).catch(err => console.error(err));
+                }).catch(err =>  handleError(err));
 
         }
 

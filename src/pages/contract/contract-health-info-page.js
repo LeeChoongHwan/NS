@@ -7,7 +7,8 @@ import {Container} from "react-bootstrap";
 import {useLocation, useNavigate} from "react-router-dom";
 import {baseAxios} from "../../utils/cust-axios";
 import PremiumModal from "../../component/premium_modal";
-import {inquire_health, nav_signup_user} from "../../utils/url";
+import {inquire_health, nav_insurance, nav_signup_user} from "../../utils/url";
+import {handleError} from "../../utils/exception/global-exception-handler";
 
 export default function ContractHealthInfoPage() {
     const [validated, setValidated] = useState(false);
@@ -28,6 +29,15 @@ export default function ContractHealthInfoPage() {
             setType(location.state.type);
         }
     }, [])
+
+    const moveBack = () =>{
+        navigate(nav_insurance(),{
+            replace : true,
+            state : {
+                mode : location.state.mode
+            }
+        })
+    }
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
@@ -66,7 +76,7 @@ export default function ContractHealthInfoPage() {
                     setPremiumModalShow(true);
                     contractInfo.premium = response.data.premium;
                     setHealthContractDto(contractInfo);
-                }).catch(err => console.error(err));
+                }).catch(err =>  handleError(err));
         }
         setValidated(true);
     };
@@ -268,7 +278,7 @@ export default function ContractHealthInfoPage() {
                 </Form.Group>
 
                 <div className={"flex_box flex_box_end"}>
-                    <Button type="button" variant={"danger"}>취소하기</Button>
+                    <Button onClick={moveBack} type="button" variant={"danger"}>취소하기</Button>
                     <Button type="submit">다음</Button>
                 </div>
             </Form>

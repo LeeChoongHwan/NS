@@ -7,6 +7,11 @@
 .flex_box_end{
     justify-content: end;
 }
+.center{
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
 .flex_box_center{
     justify-content: center;
     align-items: center;
@@ -18,4 +23,24 @@
     max-width: 330px;
     padding: 15px;
     margin: auto;
+}
+.w-80{
+    width: 80% !important;
+}
+.correct{
+    color : green;
+}
+.wrong{
+    color : red;
+    display: none;
+}
+.mr-3{
+    margin-right: 3px;
+}
+.label{
+    position: relative;
+    top: 15px;
+}
+.none{
+    display: none;
 }

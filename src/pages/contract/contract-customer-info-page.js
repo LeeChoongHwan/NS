@@ -13,6 +13,7 @@ import {
 } from "../../utils/reg-pattern";
 import {Container, InputGroup} from "react-bootstrap";
 import {nav_home, nav_signup_type} from "../../utils/url";
+import Header from "../../component/header";
 
 export default function ContracctCustomerInfo() {
     const [validated, setValidated] = useState(false);
@@ -55,14 +56,14 @@ export default function ContracctCustomerInfo() {
             replace: true
         })
     };
-    const hanldeBack = () => {
+    const handleBack = () => {
         navigate(nav_home(), {replace: true});
     }
 
     return (
         <Container className={"w-75"}>
 
-            <h4 className={"mb-3 mt-3"}>개인 정보 입력</h4>
+            <Header _content={"개인 정보 입력"}/>
 
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
                 <Form.Group className={"mb-3"}>
@@ -235,7 +236,7 @@ export default function ContracctCustomerInfo() {
                 </Form.Group>
 
                 <div className={"flex_box flex_box_end"}>
-                    <Button type="button" variant={"danger"} onClick={hanldeBack}>취소하기</Button>
+                    <Button type="button" variant={"danger"} onClick={handleBack}>취소하기</Button>
                     <Button type="submit">다음</Button>
                 </div>
             </Form>

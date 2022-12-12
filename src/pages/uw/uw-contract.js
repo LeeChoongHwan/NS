@@ -7,8 +7,9 @@ import {nav_uw, read_customer_uw_status} from "../../utils/url";
 import {convertUwStatus} from "../../utils/convert-values";
 import {ModalMode as ModalStatus} from "../../utils/global-variable";
 import {Button} from "react-bootstrap";
+import {handleError} from "../../utils/exception/global-exception-handler";
 
-export default function UwContract(){
+export default function UwContract() {
     const [body, setBody] = useState([])
     const [type, setType] = useState();
     const [showModal, setShowModal] = useState(false)
@@ -30,18 +31,17 @@ export default function UwContract(){
         if (location.state.insuranceType !== null) {
             setType(location.state.insuranceType)
             tokenAxios().get(read_customer_uw_status(location.state.insuranceType))
-                .then((res) =>{
+                .then((res) => {
                     res.data.map((data) => {
                             data.conditionOfUw = convertUwStatus(data.conditionOfUw)
-                    }
+                        }
                     )
                     setBody(res.data);
-                })
+                }).catch(err => handleError(err))
         }
 
 
-
-    },[refresh])
+    }, [refresh])
 
     const createModal = (event) => {
         setShowModal(true)
@@ -50,7 +50,7 @@ export default function UwContract(){
 
     return (
         <>
-            <CustTable _head={uw_contract_header}  _body={body} _modalProps={modalState} _rowAction={createModal}/>
+            <CustTable _head={uw_contract_header} _body={body} _modalProps={modalState} _rowAction={createModal}/>
             <Button onClick={() => navigate(nav_uw())}>뒤로가기</Button>
         </>
     )

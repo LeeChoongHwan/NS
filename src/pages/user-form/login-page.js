@@ -4,6 +4,8 @@ import {login_user, nav_home} from "../../utils/url";
 import {useEffect, useState} from "react";
 import saveToken from "../../utils/tokens";
 import {useLocation, useNavigate} from "react-router-dom";
+import {globalExceptionHandler, handleError} from "../../utils/exception/global-exception-handler";
+import Header from "../../component/header";
 
 export default function LoginPage(){
 
@@ -32,13 +34,16 @@ export default function LoginPage(){
                 navigate(url,{
                     replace : true
                 })
+            }).catch(err => {
+                console.log(err)
+                handleError(err)
             })
             // setValidated(true);
         }
     };
     return (
         <>
-        <h4>로그인 화면 입니당</h4>
+
         <UserForm validated={validated} handleSubmit={handleSubmit} button_message={"로그인"}></UserForm>
         </>
     )

@@ -8,6 +8,7 @@ import {getBuildingTypeFromCheckedForm} from "../../utils/convert-values";
 import {baseAxios} from "../../utils/cust-axios";
 import PremiumModal from "../../component/premium_modal";
 import {inquire_fire, nav_signup_user} from "../../utils/url";
+import {handleError} from "../../utils/exception/global-exception-handler";
 
 export default function ContractFireInfoPage() {
     const [validated, setValidated] = useState(false);
@@ -53,7 +54,7 @@ export default function ContractFireInfoPage() {
                     setFireContractDto(contractDto);
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    handleError(error)
                 });
         }
         setValidated(true);
